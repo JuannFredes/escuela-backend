@@ -1,5 +1,7 @@
 package com.juan.escuela.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -8,8 +10,10 @@ import java.util.List;
 @Table(name = "alumnos")
 public class Alumno extends Persona {
 
+    @JsonIgnore
     @Column(name = "numero_referencia")
     private String numeroReferencia;
+    @JsonIgnore
     @OneToMany(mappedBy = "alumno", fetch = FetchType.LAZY)
     private List<MateriaAlumno> materiaAlumnos;
 
