@@ -10,10 +10,10 @@ import java.util.List;
 @Table(name = "alumnos")
 public class Alumno extends Persona {
 
-    @JsonIgnore
+
     @Column(name = "numero_referencia")
     private String numeroReferencia;
-    @JsonIgnore
+
     @OneToMany(mappedBy = "alumno", fetch = FetchType.LAZY)
     private List<MateriaAlumno> materiaAlumnos;
 

@@ -1,5 +1,7 @@
 package com.juan.escuela.services;
 
+import com.juan.escuela.dto.AlumnoDto;
+import com.juan.escuela.mappers.AlumnoMapper;
 import com.juan.escuela.models.Alumno;
 import com.juan.escuela.repositories.AlumnoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,11 @@ import java.util.List;
 public class AlumnoService {
     @Autowired
     private AlumnoRepository alumnoRepository;
+    @Autowired
+    private AlumnoMapper alumnoMapper;
 
-    public List<Alumno> getAll(){
+    public List<AlumnoDto> getAll(){
         List<Alumno> alumnos = (List<Alumno>) alumnoRepository.findAll();
-        return alumnos;
+        return alumnoMapper.toListAlumnoDto(alumnos);
     }
 }
