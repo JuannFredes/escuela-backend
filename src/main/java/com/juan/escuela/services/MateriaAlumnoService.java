@@ -28,5 +28,4 @@ public class MateriaAlumnoService {
         return materiaMapper.toMateriaNotaDto(materiaAlumnoSave);
     }
 
-
 }

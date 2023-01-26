@@ -4,8 +4,6 @@ import com.juan.escuela.dto.ProfesorDto;
 import com.juan.escuela.models.Profesor;
 import com.juan.escuela.services.ProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +27,7 @@ public class ProfesorController {
 
     @PostMapping("/profesor")
     public ProfesorDto saveProfesor(@RequestBody Profesor profesor){
-        return profesorService.updateProfesor(profesor);
+        return profesorService.saveProfesor(profesor);
     }
 
     @DeleteMapping("/profesor/{id}")

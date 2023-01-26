@@ -28,7 +28,7 @@ public class AlumnoController {
 
     @PostMapping("/alumnos")
     public AlumnoDto saveAlumno(@RequestBody Alumno alumno) {
-        AlumnoDto alumnoDto = alumnoService.postAlumno(alumno);
+        AlumnoDto alumnoDto = alumnoService.saveAlumno(alumno);
         return alumnoDto;
     }
 

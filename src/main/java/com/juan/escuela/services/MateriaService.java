@@ -2,6 +2,7 @@ package com.juan.escuela.services;
 
 import com.juan.escuela.dto.MateriaDetailsDto;
 import com.juan.escuela.dto.MateriaDto;
+import com.juan.escuela.exceptions.AppException;
 import com.juan.escuela.mappers.MateriaMapper;
 import com.juan.escuela.models.Materia;
 import com.juan.escuela.repositories.MateriaRepository;
@@ -26,7 +27,8 @@ public class MateriaService {
     }
 
     public MateriaDetailsDto getMateriaById(int id) {
-        Materia materia = materiaRepository.findById(id).orElse(null);
+        Materia materia = materiaRepository.findById(id)
+                .orElseThrow(() -> new AppException("la materia con el id: " + id + " no se encuentra", HttpStatus.BAD_REQUEST));
         return materiaMapper.toMateriaDetailsDto(materia);
     }
 
@@ -36,6 +38,10 @@ public class MateriaService {
     }
 
     public void deleteMateriaById(int id){
+        if(!materiaRepository.existsById(id)) {
+            throw new AppException("la materia con el id: " + id + " no existe", HttpStatus.BAD_REQUEST);
+        }
+
         materiaRepository.deleteById(id);
     }
 
