@@ -5,35 +5,44 @@ import com.juan.escuela.dto.AlumnoMateriasDto;
 import com.juan.escuela.models.Alumno;
 import com.juan.escuela.services.AlumnoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/alumnos")
 public class AlumnoController {
 
     @Autowired
     private AlumnoService alumnoService;
 
-    @GetMapping("/alumnos")
-    public List<AlumnoDto> getAll() {
-        return alumnoService.getAllAlumnos();
+    @GetMapping
+    public ResponseEntity<List<AlumnoDto>> getAlumnos(){
+        return ResponseEntity.ok(alumnoService.getAllAlumnos());
     }
 
-    @GetMapping("/alumnos/{id}")
-    public AlumnoMateriasDto getAlumno(@PathVariable int id) {
-        return alumnoService.getAlumnoById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<AlumnoMateriasDto> getAlumno(@PathVariable int id) {
+        return ResponseEntity.ok(alumnoService.getAlumnoById(id));
     }
 
-    @PostMapping("/alumnos")
-    public AlumnoDto saveAlumno(@RequestBody Alumno alumno) {
+    @PutMapping("/{id}")
+    public ResponseEntity<AlumnoDto> updateAlumno(@PathVariable int id, @RequestBody Alumno alumno){
+        return ResponseEntity.ok(alumnoService.putAlumnoById(id,alumno));
+    }
+
+    @PostMapping
+    public ResponseEntity<AlumnoDto> saveAlumno(@RequestBody Alumno alumno) {
         AlumnoDto alumnoDto = alumnoService.saveAlumno(alumno);
-        return alumnoDto;
+        return ResponseEntity.status(HttpStatus.CREATED).body(alumnoDto);
     }
 
-    @DeleteMapping("/alumnos/{id}")
-    public void deleteAlumno(@PathVariable int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAlumno(@PathVariable int id) {
         alumnoService.deleteAlumnoById(id);
+        return ResponseEntity.noContent().build();
     }
+
 }

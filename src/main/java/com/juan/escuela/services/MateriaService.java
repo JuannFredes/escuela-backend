@@ -45,4 +45,14 @@ public class MateriaService {
         materiaRepository.deleteById(id);
     }
 
+    public MateriaDto putMateriaById(int id, Materia newMateria){
+        Materia materiaPut = materiaRepository.findById(id)
+                .map(materia -> {
+                    materia.setNombre(newMateria.getNombre());
+                    return materiaRepository.save(materia);})
+                .orElseThrow(() -> new AppException("no se ha podido actualizar la materia, uno de los datos enviados es incorrecto", HttpStatus.BAD_REQUEST));
+
+        return materiaMapper.toMateriaDto(materiaPut);
+    }
+
 }

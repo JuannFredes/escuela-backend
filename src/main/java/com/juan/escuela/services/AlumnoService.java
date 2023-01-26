@@ -32,6 +32,24 @@ public class AlumnoService {
         return alumnoMapper.toAlumnoMateriasDto(alumno);
     }
 
+    public AlumnoDto putAlumnoById(int id, Alumno newAlumno){
+        Alumno alumnoPut = alumnoRepository.findById(id)
+                .map(alumno -> {
+                    alumno.setNombre(newAlumno.getNombre());
+                    alumno.setApellido(newAlumno.getApellido());
+                    alumno.setDni(newAlumno.getDni());
+                    alumno.setCelular(newAlumno.getCelular());
+                    alumno.setTelefono(newAlumno.getTelefono());
+                    alumno.setEmail(newAlumno.getEmail());
+                    alumno.setFechaNacimiento(newAlumno.getFechaNacimiento());
+                    alumno.setDireccion(newAlumno.getDireccion());
+                    alumno.setSexo(newAlumno.getSexo());
+                    return alumnoRepository.save(alumno);})
+                .orElseThrow(() -> new AppException("no se ha podido actualizar el alumno, un dato ingresado es incorrecto", HttpStatus.BAD_REQUEST));
+
+        return alumnoMapper.toAlumnoDto(alumnoPut);
+    }
+
     public void deleteAlumnoById (int id) {
         if (!alumnoRepository.existsById(id)) {
             throw new AppException("No se pudo eliminar el alumno porque no se encontro el usuario con el id: " + id, HttpStatus.BAD_REQUEST);

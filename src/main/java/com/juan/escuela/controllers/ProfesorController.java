@@ -4,34 +4,42 @@ import com.juan.escuela.dto.ProfesorDto;
 import com.juan.escuela.models.Profesor;
 import com.juan.escuela.services.ProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/profesores")
 public class ProfesorController {
 
     @Autowired
     private ProfesorService profesorService;
 
-    @GetMapping("/profesor")
-    public List<ProfesorDto> getAllProfesor(){
-        return profesorService.getAllProfesores();
+    @GetMapping
+    public ResponseEntity<List<ProfesorDto>> getAllProfesor(){
+        return ResponseEntity.ok(profesorService.getAllProfesores());
     }
 
-    @GetMapping("/profesor/{id}")
-    public ProfesorDto getProfesor(@PathVariable int id){
-        return profesorService.getProfesorById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<ProfesorDto> getProfesor(@PathVariable int id){
+        return ResponseEntity.ok(profesorService.getProfesorById(id));
     }
 
-    @PostMapping("/profesor")
-    public ProfesorDto saveProfesor(@RequestBody Profesor profesor){
-        return profesorService.saveProfesor(profesor);
+    @PutMapping("/{id}")
+    public ResponseEntity<ProfesorDto> updateProfesor(@PathVariable int id, @RequestBody Profesor profesor){
+        return ResponseEntity.ok(profesorService.updateProfesorById(id, profesor));
     }
 
-    @DeleteMapping("/profesor/{id}")
-    public void deleteProfesor(@PathVariable int id) {
+    @PostMapping
+    public ResponseEntity<ProfesorDto> saveProfesor(@RequestBody Profesor profesor){
+        return ResponseEntity.status(HttpStatus.CREATED).body(profesorService.saveProfesor(profesor));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProfesor(@PathVariable int id) {
         profesorService.deleteProfesorByid(id);
+        return ResponseEntity.noContent().build();
     }
 }

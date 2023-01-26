@@ -17,7 +17,7 @@ public class MateriaAlumnoService {
     @Autowired
     private MateriaMapper materiaMapper;
 
-    public MateriaNotaDto createMateriaNota(int idAlumno, MateriaNotaDto materiaNotaDto) {
+    public MateriaNotaDto createPutMateriaNota(int idAlumno, MateriaNotaDto materiaNotaDto) {
         AlumnoMateriaKeys alumnoMateriaKeys = new AlumnoMateriaKeys(materiaNotaDto.getId(),idAlumno);
         MateriaAlumno materiaAlumno = new MateriaAlumno(alumnoMateriaKeys);
         materiaAlumno.setAlumno(new Alumno(idAlumno));

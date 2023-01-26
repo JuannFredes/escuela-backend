@@ -7,17 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/materianota")
 public class MateriaAlumnoController {
-
     @Autowired
     private MateriaAlumnoService materiaAlumnoService;
 
-
-
-    @PostMapping("/materianota/{idAlumno}")
+    @PostMapping("/{idAlumno}")
     public ResponseEntity<MateriaNotaDto> updateMateriaNota(@PathVariable("idAlumno") int id, @RequestBody MateriaNotaDto materiaNotaDto){
-        return ResponseEntity.ok(materiaAlumnoService.createMateriaNota(id, materiaNotaDto));
+        return ResponseEntity.ok(materiaAlumnoService.createPutMateriaNota(id, materiaNotaDto));
     }
-
 }
