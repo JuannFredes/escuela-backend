@@ -1,6 +1,8 @@
 package com.juan.escuela.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -10,6 +12,8 @@ public class Materia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull(message = "el nombre de la materia no puede ser nulo")
+    @NotBlank(message = "el nombre de la materia no puede estar vacio")
     private String nombre;
 
     @OneToMany(mappedBy = "materia", cascade = CascadeType.ALL)

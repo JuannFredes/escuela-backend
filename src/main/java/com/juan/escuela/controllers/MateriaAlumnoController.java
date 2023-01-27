@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/materianota")
 public class MateriaAlumnoController {
@@ -13,7 +15,7 @@ public class MateriaAlumnoController {
     private MateriaAlumnoService materiaAlumnoService;
 
     @PostMapping("/{idAlumno}")
-    public ResponseEntity<MateriaNotaDto> updateMateriaNota(@PathVariable("idAlumno") int id, @RequestBody MateriaNotaDto materiaNotaDto){
+    public ResponseEntity<MateriaNotaDto> updateMateriaNota(@PathVariable("idAlumno") int id, @Valid @RequestBody MateriaNotaDto materiaNotaDto){
         return ResponseEntity.ok(materiaAlumnoService.createPutMateriaNota(id, materiaNotaDto));
     }
 }

@@ -1,17 +1,36 @@
 package com.juan.escuela.dto;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ErrorDto {
-    private String message;
+    private Map<String,String> error;
 
-    public ErrorDto(String message) {
-        this.message = message;
+    public ErrorDto() {
     }
 
-    public String getMessage() {
-        return message;
+    public ErrorDto(Map<String, String> error) {
+        this.error = error;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public Map<String, String> getError() {
+        return error;
     }
+
+    public void setError(Map<String, String> error) {
+        this.error = error;
+    }
+
+    public void add(String key, String value) {
+        if (this.error == null) {
+            this.error = new HashMap<>();
+        }
+
+        error.put(key, value);
+    }
+
+    public static class Builder {
+
+    }
+
 }
