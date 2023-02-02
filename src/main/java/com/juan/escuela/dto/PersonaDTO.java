@@ -1,5 +1,7 @@
 package com.juan.escuela.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 
 public abstract class PersonaDTO {
@@ -12,6 +14,7 @@ public abstract class PersonaDTO {
     private String celular;
     private String email;
     private int age;
+    @JsonProperty("fecha_nacimiento")
     private LocalDate fechaNacimiento;
     private char sexo;
     private String direccion;

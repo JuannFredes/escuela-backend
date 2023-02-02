@@ -1,9 +1,12 @@
 package com.juan.escuela.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 
 public class ProfesorDto extends PersonaDTO{
 
+    @JsonProperty("materia_encargado")
     private String materiaEncargado;
 
     public ProfesorDto() {

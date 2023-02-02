@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 public abstract class Persona {
@@ -29,6 +30,8 @@ public abstract class Persona {
     private LocalDate fechaNacimiento;
     private char sexo;
     private String direccion;
+    @Column(name = "create_at")
+    private LocalDateTime create;
 
     public Persona() {
     }
