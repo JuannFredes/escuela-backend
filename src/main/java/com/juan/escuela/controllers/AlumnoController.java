@@ -4,7 +4,7 @@ import com.juan.escuela.dto.AlumnoDto;
 import com.juan.escuela.dto.AlumnoMateriasDto;
 import com.juan.escuela.models.Alumno;
 import com.juan.escuela.services.AlumnoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/alumnos")
 public class AlumnoController {
 
-    @Autowired
-    private AlumnoService alumnoService;
+    private final AlumnoService alumnoService;
 
     @GetMapping
     public ResponseEntity<List<AlumnoDto>> getAlumnos(){

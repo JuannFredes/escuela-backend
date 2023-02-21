@@ -6,20 +6,19 @@ import com.juan.escuela.mappers.ProfesorMapper;
 import com.juan.escuela.models.Materia;
 import com.juan.escuela.models.Profesor;
 import com.juan.escuela.repositories.ProfesorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class ProfesorService {
 
-    @Autowired
-    private ProfesorRepository profesorRepository;
+    private final ProfesorRepository profesorRepository;
 
-    @Autowired
-    private ProfesorMapper profesorMapper;
+    private final ProfesorMapper profesorMapper;
 
     public List<ProfesorDto> getAllProfesores(){
         List<Profesor> profesorDtos = (List<Profesor>) profesorRepository.findAll();
@@ -33,7 +32,6 @@ public class ProfesorService {
     }
 
     public ProfesorDto saveProfesor(Profesor profesor) {
-        System.out.println(profesor);
         Profesor profesorSave = profesorRepository.save(profesor);
         return profesorMapper.toProfesorDto(profesorSave);
     }

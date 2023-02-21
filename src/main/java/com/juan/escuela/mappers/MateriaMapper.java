@@ -19,8 +19,12 @@ public interface MateriaMapper {
     @IterableMapping(qualifiedByName = "toMateriaDto")
     List<MateriaDto> toListMateriaDto(List<Materia> materias);
 
+    //@Named("toAlumno")
     @Mapping(target = ".", source = "alumno")
     Alumno toAlumno(MateriaAlumno materiaAlumno);
+
+    //@IterableMapping(qualifiedByName = "toAlumno")
+    List<Alumno> toListAlumno(List<MateriaAlumno> materiaAlumnos);
 
     @Mappings({
             @Mapping(target = "alumnos", source = "materiaAlumnos", qualifiedByName = "AlumnoDto"),

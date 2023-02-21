@@ -3,7 +3,7 @@ package com.juan.escuela.controllers;
 import com.juan.escuela.dto.ProfesorDto;
 import com.juan.escuela.models.Profesor;
 import com.juan.escuela.services.ProfesorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/profesores")
 public class ProfesorController {
 
-    @Autowired
-    private ProfesorService profesorService;
+    private final ProfesorService profesorService;
 
     @GetMapping
     public ResponseEntity<List<ProfesorDto>> getAllProfesor(){

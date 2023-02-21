@@ -1,9 +1,16 @@
 package com.juan.escuela.models;
 
-import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "MATERIAS_ALUMNOS")
 public class MateriaAlumno {
@@ -20,50 +27,9 @@ public class MateriaAlumno {
     private Alumno alumno;
     private short nota;
 
-    public MateriaAlumno() {
-    }
-
     public MateriaAlumno(AlumnoMateriaKeys alumnoMateriaKeys) {
         this.alumnoMateriaKeys = alumnoMateriaKeys;
     }
 
-    public MateriaAlumno(AlumnoMateriaKeys alumnoMateriaKeys/*, Alumno alumno, Materia materia*/, short nota) {
-        this.alumnoMateriaKeys = alumnoMateriaKeys;
-        this.alumno = alumno;
-        this.materia = materia;
-        this.nota = nota;
-    }
-
-    public AlumnoMateriaKeys getAlumnoMateriaKeys() {
-        return alumnoMateriaKeys;
-    }
-
-    public void setAlumnoMateriaKeys(AlumnoMateriaKeys alumnoMateriaKeys) {
-        this.alumnoMateriaKeys = alumnoMateriaKeys;
-    }
-
-    public Alumno getAlumno() {
-        return alumno;
-    }
-
-    public void setAlumno(Alumno alumno) {
-        this.alumno = alumno;
-    }
-
-    public Materia getMateria() {
-        return materia;
-    }
-
-    public void setMateria(Materia materia) {
-        this.materia = materia;
-    }
-
-    public short getNota() {
-        return nota;
-    }
-
-    public void setNota(short nota) {
-        this.nota = nota;
-    }
 
 }

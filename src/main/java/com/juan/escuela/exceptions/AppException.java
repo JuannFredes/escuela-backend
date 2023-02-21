@@ -1,7 +1,11 @@
 package com.juan.escuela.exceptions;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class AppException extends RuntimeException {
     private HttpStatus httpStatus;
 
@@ -10,11 +14,4 @@ public class AppException extends RuntimeException {
         this.httpStatus = httpStatus;
     }
 
-    public HttpStatus getHttpStatus() {
-        return httpStatus;
-    }
-
-    public void setHttpStatus(HttpStatus httpStatus) {
-        this.httpStatus = httpStatus;
-    }
 }

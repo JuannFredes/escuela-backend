@@ -1,25 +1,19 @@
 package com.juan.escuela.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ErrorDto {
     private Map<String,String> error;
-
-    public ErrorDto() {
-    }
-
-    public ErrorDto(Map<String, String> error) {
-        this.error = error;
-    }
-
-    public Map<String, String> getError() {
-        return error;
-    }
-
-    public void setError(Map<String, String> error) {
-        this.error = error;
-    }
 
     public void add(String key, String value) {
         if (this.error == null) {
@@ -27,10 +21,6 @@ public class ErrorDto {
         }
 
         error.put(key, value);
-    }
-
-    public static class Builder {
-
     }
 
 }

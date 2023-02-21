@@ -1,9 +1,15 @@
 package com.juan.escuela.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class PersonaDTO {
 
     private int id;
@@ -19,14 +25,14 @@ public abstract class PersonaDTO {
     private char sexo;
     private String direccion;
 
-    public PersonaDTO() {
-    }
+    /*public PersonaDTO() {
+    }*/
 
     public PersonaDTO(int id) {
         this.id = id;
     }
 
-    public PersonaDTO(int id, String nombre, String apellido, String dni, String telefono, String celular, int age, LocalDate fechaNacimiento, char sexo, String direccion, String email) {
+    /*public PersonaDTO(int id, String nombre, String apellido, String dni, String telefono, String celular, int age, LocalDate fechaNacimiento, char sexo, String direccion, String email) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -126,5 +132,5 @@ public abstract class PersonaDTO {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
+    }*/
 }

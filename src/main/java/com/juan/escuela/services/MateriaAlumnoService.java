@@ -7,15 +7,16 @@ import com.juan.escuela.models.AlumnoMateriaKeys;
 import com.juan.escuela.models.Materia;
 import com.juan.escuela.models.MateriaAlumno;
 import com.juan.escuela.repositories.MateriaAlumnoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class MateriaAlumnoService {
-    @Autowired
-    private MateriaAlumnoRepository materiaAlumnoRepository;
-    @Autowired
-    private MateriaMapper materiaMapper;
+
+    private final MateriaAlumnoRepository materiaAlumnoRepository;
+
+    private final MateriaMapper materiaMapper;
 
     public MateriaNotaDto createPutMateriaNota(int idAlumno, MateriaNotaDto materiaNotaDto) {
         AlumnoMateriaKeys alumnoMateriaKeys = new AlumnoMateriaKeys(materiaNotaDto.getId(),idAlumno);

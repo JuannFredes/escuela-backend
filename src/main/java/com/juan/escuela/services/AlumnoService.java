@@ -6,19 +6,19 @@ import com.juan.escuela.exceptions.AppException;
 import com.juan.escuela.mappers.AlumnoMapper;
 import com.juan.escuela.models.Alumno;
 import com.juan.escuela.repositories.AlumnoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class AlumnoService {
 
-    @Autowired
-    private AlumnoRepository alumnoRepository;
-    @Autowired
-    private AlumnoMapper alumnoMapper;
+    private final AlumnoRepository alumnoRepository;
+
+    private final AlumnoMapper alumnoMapper;
 
     public List<AlumnoDto> getAllAlumnos() {
         List<Alumno> alumnos = (List<Alumno>) alumnoRepository.findAll();

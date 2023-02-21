@@ -1,10 +1,19 @@
 package com.juan.escuela.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "materias")
 public class Materia {
@@ -22,50 +31,8 @@ public class Materia {
     @OneToMany(mappedBy = "materia")
     private List<MateriaAlumno> materiaAlumnos;
 
-    public Materia() {
-    }
-
     public Materia(int id) {
         this.id = id;
-    }
-
-    public Materia(int id, String nombre, List<Profesor> profesors, List<MateriaAlumno> materiaAlumnos) {
-        this.id = id;
-        this.nombre = nombre;
-        this.profesors = profesors;
-        this.materiaAlumnos = materiaAlumnos;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public List<Profesor> getProfesors() {
-        return profesors;
-    }
-
-    public void setProfesors(List<Profesor> profesors) {
-        this.profesors = profesors;
-    }
-
-    public List<MateriaAlumno> getMateriaAlumnos() {
-        return materiaAlumnos;
-    }
-
-    public void setMateriaAlumnos(List<MateriaAlumno> materiaAlumnos) {
-        this.materiaAlumnos = materiaAlumnos;
     }
 
 }

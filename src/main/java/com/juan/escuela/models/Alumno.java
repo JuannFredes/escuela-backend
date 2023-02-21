@@ -1,15 +1,18 @@
 package com.juan.escuela.models;
 
+import lombok.*;
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "alumnos")
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Alumno extends Persona {
-
 
     @Column(name = "numero_emergencia")
     private String numeroEmergencia;
@@ -27,57 +30,16 @@ public class Alumno extends Persona {
     @OneToMany(mappedBy = "alumno", fetch = FetchType.LAZY)
     private List<MateriaAlumno> materiaAlumnos;
 
-    public Alumno() {
-    }
-
     public Alumno(int id) {
         super(id);
     }
 
-    public Alumno(int id, String numeroEmergencia, List<MateriaAlumno> materiaAlumnos) {
-        super(id);
-        this.numeroEmergencia = numeroEmergencia;
-        this.materiaAlumnos = materiaAlumnos;
-    }
-
-    public Alumno(int id, String nombre, String apellido, String dni, String telefono, String celular, String email, LocalDate fechaNacimiento, char sexo, String direccion, String numeroEmergencia, Short anio, Short division, List<MateriaAlumno> materiaAlumnos) {
-        super(id, nombre, apellido, dni, telefono, celular, email, fechaNacimiento, sexo, direccion);
+    @Builder
+    public Alumno(int id, @NotNull(message = "el nombre no puede ser nulo") @NotBlank(message = "el nombre no puede estar vacio") String nombre, @NotNull(message = "el apellido no puede ser nul") @NotBlank(message = "el apellido no puede estar vacio") String apellido, @Pattern(regexp = "^[0-9]{8}$", message = "el dni debe contener 8 numeros sin puntos") String dni, String telefono, String celular, @Email(message = "formato de e-mail no valido") String email, LocalDate fechaNacimiento, char sexo, String direccion, LocalDateTime create, String numeroEmergencia, Short anio, Short division, List<MateriaAlumno> materiaAlumnos) {
+        super(id, nombre, apellido, dni, telefono, celular, email, fechaNacimiento, sexo, direccion, create);
         this.numeroEmergencia = numeroEmergencia;
         this.anio = anio;
         this.division = division;
         this.materiaAlumnos = materiaAlumnos;
     }
-
-    public String getNumeroEmergencia() {
-        return numeroEmergencia;
-    }
-
-    public void setNumeroEmergencia(String numeroEmergencia) {
-        this.numeroEmergencia = numeroEmergencia;
-    }
-
-    public Short getAnio() {
-        return anio;
-    }
-
-    public void setAnio(Short anio) {
-        this.anio = anio;
-    }
-
-    public Short getDivision() {
-        return division;
-    }
-
-    public void setDivision(Short division) {
-        this.division = division;
-    }
-
-    public List<MateriaAlumno> getMateriaAlumnos() {
-        return materiaAlumnos;
-    }
-
-    public void setMateriaAlumnos(List<MateriaAlumno> materiaAlumnos) {
-        this.materiaAlumnos = materiaAlumnos;
-    }
-
 }

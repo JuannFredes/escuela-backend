@@ -4,19 +4,19 @@ import com.juan.escuela.dto.MateriaDetailsDto;
 import com.juan.escuela.dto.MateriaDto;
 import com.juan.escuela.models.Materia;
 import com.juan.escuela.services.MateriaService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/materias")
 public class MateriaController {
 
-    @Autowired
-    private MateriaService materiaService;
+    private final MateriaService materiaService;
 
     @GetMapping
     public ResponseEntity<List<MateriaDto>> getAll(){

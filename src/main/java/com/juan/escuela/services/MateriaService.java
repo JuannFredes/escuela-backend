@@ -6,20 +6,19 @@ import com.juan.escuela.exceptions.AppException;
 import com.juan.escuela.mappers.MateriaMapper;
 import com.juan.escuela.models.Materia;
 import com.juan.escuela.repositories.MateriaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class MateriaService {
 
-    @Autowired
-    private MateriaRepository materiaRepository;
+    private final MateriaRepository materiaRepository;
 
-    @Autowired
-    private MateriaMapper materiaMapper;
+    private final MateriaMapper materiaMapper;
 
     public List<MateriaDto> getAllMaterias() {
         List<Materia> materias = (List<Materia>) materiaRepository.findAll();
