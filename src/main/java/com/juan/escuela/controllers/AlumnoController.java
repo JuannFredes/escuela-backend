@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/alumnos")
+@RequestMapping("/v1/alumnos")
 public class AlumnoController {
 
     @Autowired

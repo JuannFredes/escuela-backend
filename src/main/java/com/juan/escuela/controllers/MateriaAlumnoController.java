@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/materianota")
+@RequestMapping("/v1/materianota")
 public class MateriaAlumnoController {
     @Autowired
     private MateriaAlumnoService materiaAlumnoService;
