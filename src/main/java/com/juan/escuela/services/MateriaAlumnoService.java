@@ -20,11 +20,12 @@ public class MateriaAlumnoService {
 
     public MateriaNotaDto createPutMateriaNota(int idAlumno, MateriaNotaDto materiaNotaDto) {
         AlumnoMateriaKeys alumnoMateriaKeys = new AlumnoMateriaKeys(materiaNotaDto.getId(),idAlumno);
-        MateriaAlumno materiaAlumno = new MateriaAlumno(alumnoMateriaKeys);
-        materiaAlumno.setAlumno(new Alumno(idAlumno));
-        materiaAlumno.setMateria(new Materia(materiaNotaDto.getId()));
-        materiaAlumno.setNota(materiaNotaDto.getNota());
-        System.out.println(materiaAlumno);
+        MateriaAlumno materiaAlumno = MateriaAlumno.builder()
+                .alumnoMateriaKeys(alumnoMateriaKeys)
+                .alumno(new Alumno(idAlumno))
+                .materia(new Materia(materiaNotaDto.getId()))
+                .nota(materiaNotaDto.getNota())
+                .build();
         MateriaAlumno materiaAlumnoSave = materiaAlumnoRepository.save(materiaAlumno);
         return materiaMapper.toMateriaNotaDto(materiaAlumnoSave);
     }

@@ -36,8 +36,8 @@ public class ProfesorService {
         return profesorMapper.toProfesorDto(profesorSave);
     }
 
-    public ProfesorDto updateProfesorById(int id, Profesor newProfesor){
-        Profesor profesorPut = profesorRepository.findById(id)
+    public ProfesorDto updateProfesorById(Profesor newProfesor){
+        Profesor profesorPut = profesorRepository.findById(newProfesor.getId())
                 .map(profesor -> {
                     profesor.setNombre(newProfesor.getNombre());
                     profesor.setApellido(newProfesor.getApellido());
@@ -50,14 +50,14 @@ public class ProfesorService {
                     profesor.setFechaNacimiento(newProfesor.getFechaNacimiento());
                     profesor.setMateria(new Materia(newProfesor.getMateria().getId()));
                     return profesorRepository.save(profesor);})
-                .orElseThrow(() -> new AppException("no se ha podido actualizar el profesor, algun dato ingresado es incorrecto", HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new AppException("no se encontro el alumno con el id: " + newProfesor.getId(), HttpStatus.NOT_FOUND));
 
         return profesorMapper.toProfesorDto(profesorPut);
     }
 
     public void deleteProfesorByid(int id){
         if (!profesorRepository.existsById(id)) {
-            throw new AppException("el profesor con el id: " + id + " no existe", HttpStatus.BAD_REQUEST);
+            throw new AppException("no se pudo eliminar porque no se encontro el alumno con el id: " + id, HttpStatus.NOT_FOUND);
         }
 
         profesorRepository.deleteById(id);

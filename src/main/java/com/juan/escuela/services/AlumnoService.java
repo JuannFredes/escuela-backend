@@ -27,13 +27,13 @@ public class AlumnoService {
 
     public AlumnoMateriasDto getAlumnoById (int id) {
         Alumno alumno = alumnoRepository.findById(id)
-                .orElseThrow(() -> new AppException("No se encontro el usuario con el id: " + id, HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new AppException("no se encontro el alumno con el id: " + id, HttpStatus.NOT_FOUND));
 
         return alumnoMapper.toAlumnoMateriasDto(alumno);
     }
 
-    public AlumnoDto putAlumnoById(int id, Alumno newAlumno){
-        Alumno alumnoPut = alumnoRepository.findById(id)
+    public AlumnoDto putAlumnoById(Alumno newAlumno){
+        Alumno alumnoPut = alumnoRepository.findById(newAlumno.getId())
                 .map(alumno -> {
                     alumno.setNombre(newAlumno.getNombre());
                     alumno.setApellido(newAlumno.getApellido());
@@ -45,14 +45,14 @@ public class AlumnoService {
                     alumno.setDireccion(newAlumno.getDireccion());
                     alumno.setSexo(newAlumno.getSexo());
                     return alumnoRepository.save(alumno);})
-                .orElseThrow(() -> new AppException("no se ha podido actualizar el alumno, un dato ingresado es incorrecto", HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new AppException("no se encontro el alumno con el id: " + newAlumno.getId(), HttpStatus.NOT_FOUND));
 
         return alumnoMapper.toAlumnoDto(alumnoPut);
     }
 
     public void deleteAlumnoById (int id) {
         if (!alumnoRepository.existsById(id)) {
-            throw new AppException("No se pudo eliminar el alumno porque no se encontro el usuario con el id: " + id, HttpStatus.BAD_REQUEST);
+            throw new AppException("no se pudo eliminar el alumno porque no se encontro el alumno con el id: " + id, HttpStatus.NOT_FOUND);
         }
 
         alumnoRepository.deleteById(id);

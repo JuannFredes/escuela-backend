@@ -27,7 +27,7 @@ public class MateriaService {
 
     public MateriaDetailsDto getMateriaById(int id) {
         Materia materia = materiaRepository.findById(id)
-                .orElseThrow(() -> new AppException("la materia con el id: " + id + " no se encuentra", HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new AppException("no se encontro el alumno con el id: " + id, HttpStatus.NOT_FOUND));
         return materiaMapper.toMateriaDetailsDto(materia);
     }
 
@@ -38,18 +38,18 @@ public class MateriaService {
 
     public void deleteMateriaById(int id){
         if(!materiaRepository.existsById(id)) {
-            throw new AppException("la materia con el id: " + id + " no existe", HttpStatus.BAD_REQUEST);
+            throw new AppException("no se pudo eliminar porque no se encontro el alumno con el id: " + id, HttpStatus.NOT_FOUND);
         }
 
         materiaRepository.deleteById(id);
     }
 
-    public MateriaDto putMateriaById(int id, Materia newMateria){
-        Materia materiaPut = materiaRepository.findById(id)
+    public MateriaDto putMateriaById(Materia newMateria){
+        Materia materiaPut = materiaRepository.findById(newMateria.getId())
                 .map(materia -> {
                     materia.setNombre(newMateria.getNombre());
                     return materiaRepository.save(materia);})
-                .orElseThrow(() -> new AppException("no se ha podido actualizar la materia, uno de los datos enviados es incorrecto", HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new AppException("no se encontro la materia con el id: " + newMateria.getId(), HttpStatus.NOT_FOUND));
 
         return materiaMapper.toMateriaDto(materiaPut);
     }

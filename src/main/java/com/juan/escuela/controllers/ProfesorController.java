@@ -28,9 +28,9 @@ public class ProfesorController {
         return ResponseEntity.ok(profesorService.getProfesorById(id));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProfesorDto> updateProfesor(@PathVariable int id, @RequestBody Profesor profesor){
-        return ResponseEntity.ok(profesorService.updateProfesorById(id, profesor));
+    @PutMapping
+    public ResponseEntity<ProfesorDto> updateProfesor(@RequestBody Profesor profesor){
+        return ResponseEntity.ok(profesorService.updateProfesorById(profesor));
     }
 
     @PostMapping

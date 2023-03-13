@@ -28,9 +28,9 @@ public class MateriaController {
         return ResponseEntity.ok(materiaService.getMateriaById(id));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<MateriaDto> putMateria(@PathVariable int id, @RequestBody Materia materia){
-        return ResponseEntity.ok(materiaService.putMateriaById(id, materia));
+    @PutMapping
+    public ResponseEntity<MateriaDto> putMateria(@RequestBody Materia materia){
+        return ResponseEntity.ok(materiaService.putMateriaById(materia));
     }
 
     @PostMapping
