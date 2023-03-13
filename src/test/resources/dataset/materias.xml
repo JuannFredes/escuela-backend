@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <materias
+            id="10"
+            nombre="materia1"
+    />
+
+    <materias
+            id="20"
+            nombre="materia2"
+    />
+</dataset>

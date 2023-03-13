@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <alumnos
+            id="10"
+            nombre="first"
+            apellido="last"
+            dni="67545989"
+            numero_emergencia="1234567"
+            telefono="1234567"
+            email="email@gmail.com"
+            fecha_nacimiento="2000-02-02"
+            sexo="M"
+            direccion="Direccion 2222"
+            anio="3"
+            division="2"
+    />
+
+    <alumnos
+            id="20"
+            nombre="first2"
+            apellido="last2"
+            dni="7654321"
+            numero_emergencia="7654321"
+            telefono="7654321"
+            email="emailAlumno2@gmail.com"
+            fecha_nacimiento="2000-02-02"
+            sexo="F"
+            direccion="Direccion 22222"
+            anio="1"
+            division="3"
+    />
+</dataset>
