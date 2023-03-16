@@ -13,10 +13,27 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>escuela</name>
 	<description>Api rest para una escuela para practicar</description>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<liquibase.propertyFile>src/main/resources/liquibase-dev.properties</liquibase.propertyFile>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<liquibase.propertyFile>src/main/resources/liquibase-prod.properties</liquibase.propertyFile>
+			</properties>
+		</profile>
+	</profiles>
+
 	<properties>
 		<java.version>11</java.version>
 		<org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
 	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -28,7 +45,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 
 	<dependencies>
 		<dependency>
@@ -124,11 +140,19 @@
 	</dependencies>
 
 	<build>
-		<pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.0</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -161,9 +185,12 @@
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>4.19.0</version>
-				<configuration>
+				<!--<configuration>
+					<profiles>
+						<profile>dev</profile>
+					</profiles>
 					<propertyFile>src/main/resources/liquibase.properties</propertyFile>
-				</configuration>
+				</configuration> -->
 				<dependencies>
 					<dependency>
 						<groupId>com.h2database</groupId>
