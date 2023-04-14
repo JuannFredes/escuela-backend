@@ -1,11 +1,9 @@
-FROM maven:3.9.0 AS maven
-WORKDIR /build
-COPY . .
-RUN mvn clean package
-
-
-FROM amazoncorretto:11.0.18-alpine3.17
+FROM alpine:3.17.3
 WORKDIR /opt/app
-COPY --from=maven /build/target/escuela-0.0.1-SNAPSHOT.jar escuela.jar
+COPY . .
+RUN apk update && apk upgrade
+RUN apk add openjdk11
+RUN apk add maven
+RUN mvn clean package
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "escuela.jar"]
+CMD ["java", "-jar", "/opt/app/target/escuela-0.0.1-SNAPSHOT.jar"]

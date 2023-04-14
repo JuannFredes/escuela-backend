@@ -1,6 +1,5 @@
 package com.juan.escuela.podam;
 
-import com.mifmif.common.regex.Generex;
 import uk.co.jemos.podam.common.AttributeStrategy;
 
 import java.lang.annotation.Annotation;

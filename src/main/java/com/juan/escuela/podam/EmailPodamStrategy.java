@@ -1,9 +1,7 @@
 package com.juan.escuela.podam;
 
-import com.mifmif.common.regex.Generex;
 import uk.co.jemos.podam.common.AttributeStrategy;
 
-import javax.validation.constraints.Email;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
