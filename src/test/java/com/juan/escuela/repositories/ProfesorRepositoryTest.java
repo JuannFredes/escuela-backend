@@ -103,4 +103,12 @@ public class ProfesorRepositoryTest {
             assertEquals(profesor.getTelefono(), profesorSave.getTelefono());
         });
     }
+
+    @Test
+    @DatabaseSetup("/dataset/materias.xml")
+    void getIdFromMateriaTest() {
+        int id = profesorRepository.getIdFromMateria("materia2");
+
+        assertEquals(20, id);
+    }
 }

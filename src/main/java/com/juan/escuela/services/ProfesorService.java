@@ -31,14 +31,19 @@ public class ProfesorService {
         return profesorMapper.toProfesorDto(profesor);
     }
 
-    public ProfesorDto saveProfesor(Profesor profesor) {
+    public ProfesorDto saveProfesor(ProfesorDto profesorDto) {
+        int idMateria = profesorRepository.getIdFromMateria(profesorDto.getMateriaEncargado());
+        Profesor profesor = profesorMapper.toProfesor(profesorDto);
+        profesor.setMateria(new Materia(idMateria, profesorDto.getMateriaEncargado()));
         Profesor profesorSave = profesorRepository.save(profesor);
         return profesorMapper.toProfesorDto(profesorSave);
     }
 
-    public ProfesorDto updateProfesorById(Profesor newProfesor){
-        Profesor profesorPut = profesorRepository.findById(newProfesor.getId())
+    public ProfesorDto updateProfesor(int id, ProfesorDto newProfesor){
+        int idMateria = profesorRepository.getIdFromMateria(newProfesor.getMateriaEncargado());
+        Profesor profesorPut = profesorRepository.findById(id)
                 .map(profesor -> {
+                    profesor.setId(id);
                     profesor.setNombre(newProfesor.getNombre());
                     profesor.setApellido(newProfesor.getApellido());
                     profesor.setDni(newProfesor.getDni());
@@ -48,9 +53,9 @@ public class ProfesorService {
                     profesor.setDireccion(newProfesor.getDireccion());
                     profesor.setSexo(newProfesor.getSexo());
                     profesor.setFechaNacimiento(newProfesor.getFechaNacimiento());
-                    profesor.setMateria(new Materia(newProfesor.getMateria().getId()));
+                    profesor.setMateria(new Materia(idMateria, newProfesor.getMateriaEncargado()));
                     return profesorRepository.save(profesor);})
-                .orElseThrow(() -> new AppException("no se encontro el alumno con el id: " + newProfesor.getId(), HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new AppException("no se encontro el alumno con el id: " + id, HttpStatus.NOT_FOUND));
 
         return profesorMapper.toProfesorDto(profesorPut);
     }

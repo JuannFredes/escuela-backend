@@ -2,7 +2,6 @@ package com.juan.escuela.controllers;
 
 import com.juan.escuela.dto.MateriaDetailsDto;
 import com.juan.escuela.dto.MateriaDto;
-import com.juan.escuela.models.Materia;
 import com.juan.escuela.services.MateriaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,14 +27,14 @@ public class MateriaController {
         return ResponseEntity.ok(materiaService.getMateriaById(id));
     }
 
-    @PutMapping
-    public ResponseEntity<MateriaDto> putMateria(@RequestBody Materia materia){
-        return ResponseEntity.ok(materiaService.putMateriaById(materia));
+    @PutMapping("/{id}")
+    public ResponseEntity<MateriaDto> updateMateria(@PathVariable int id, @RequestBody MateriaDto materiaDto){
+        return ResponseEntity.ok(materiaService.putMateria(id, materiaDto));
     }
 
     @PostMapping
-    public ResponseEntity<MateriaDto> saveMateria(@Valid @RequestBody Materia materia) {
-        return ResponseEntity.ok(materiaService.saveMateria(materia));
+    public ResponseEntity<MateriaDto> saveMateria(@Valid @RequestBody MateriaDto materiaDto) {
+        return ResponseEntity.ok(materiaService.saveMateria(materiaDto));
     }
 
     @DeleteMapping("/{id}")

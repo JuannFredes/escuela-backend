@@ -10,9 +10,7 @@ import com.juan.escuela.models.Materia;
 import com.juan.escuela.models.MateriaAlumno;
 import com.juan.escuela.models.Profesor;
 import com.juan.escuela.repositories.MateriaRepository;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -121,19 +119,40 @@ class MateriaServiceTest {
     }
 
     @Test
-    void saveMateria() {
+    void putMateria() {
 
-        Materia materia = Materia.builder()
+        MateriaDto materiaDto = MateriaDto.builder()
                 .id(2)
                 .nombre("Lengua")
                 .build();
+        Materia materia = materiaMapper.toMateria(materiaDto);
+
+        when(materiaRepository.findById(materiaDto.getId())).thenReturn(Optional.of(materia));
         when(materiaRepository.save(materia)).thenReturn(materia);
 
-        MateriaDto materiaDto = materiaService.saveMateria(materia);
+        MateriaDto materiaResponse = materiaService.putMateria(materia.getId(), materiaDto);
+        verify(materiaRepository).save(materia);
+        verify(materiaRepository).findById(materiaDto.getId());
+
+        assertEquals(materiaDto.getId(), materiaResponse.getId());
+        assertEquals(materiaDto.getNombre(), materiaResponse.getNombre());
+
+    }
+    @Test
+    void saveMateria() {
+
+        MateriaDto materiaDto = MateriaDto.builder()
+                .id(2)
+                .nombre("Lengua")
+                .build();
+        Materia materia = materiaMapper.toMateria(materiaDto);
+        when(materiaRepository.save(materia)).thenReturn(materia);
+
+        MateriaDto materiaResponse = materiaService.saveMateria(materiaDto);
         verify(materiaRepository).save(materia);
 
-        assertEquals(materia.getId(), materiaDto.getId());
-        assertEquals(materia.getNombre(), materiaDto.getNombre());
+        assertEquals(materiaDto.getId(), materiaResponse.getId());
+        assertEquals(materiaDto.getNombre(), materiaResponse.getNombre());
 
     }
 

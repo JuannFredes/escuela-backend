@@ -31,9 +31,9 @@ public class MateriaService {
         return materiaMapper.toMateriaDetailsDto(materia);
     }
 
-    public MateriaDto saveMateria(Materia materia) {
-        Materia materiaSave = materiaRepository.save(materia);
-        return materiaMapper.toMateriaDto(materia);
+    public MateriaDto saveMateria(MateriaDto materia) {
+        Materia materiaSave = materiaRepository.save(materiaMapper.toMateria(materia));
+        return materiaMapper.toMateriaDto(materiaSave);
     }
 
     public void deleteMateriaById(int id){
@@ -44,12 +44,14 @@ public class MateriaService {
         materiaRepository.deleteById(id);
     }
 
-    public MateriaDto putMateriaById(Materia newMateria){
-        Materia materiaPut = materiaRepository.findById(newMateria.getId())
+    public MateriaDto putMateria(int id, MateriaDto materiaDto){
+        Materia newMateria = materiaMapper.toMateria(materiaDto);
+        Materia materiaPut = materiaRepository.findById(id)
                 .map(materia -> {
+                    materia.setId(id);
                     materia.setNombre(newMateria.getNombre());
                     return materiaRepository.save(materia);})
-                .orElseThrow(() -> new AppException("no se encontro la materia con el id: " + newMateria.getId(), HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new AppException("no se encontro la materia con el id: " + id, HttpStatus.NOT_FOUND));
 
         return materiaMapper.toMateriaDto(materiaPut);
     }

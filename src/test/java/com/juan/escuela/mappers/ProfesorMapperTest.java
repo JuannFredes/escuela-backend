@@ -55,6 +55,26 @@ public class ProfesorMapperTest {
     }
 
     @Test
+    void toProfesorTest(){
+
+        ProfesorDto profesorDto = podamFactory.manufacturePojo(ProfesorDto.class);
+
+        Profesor profesor = profesorMapper.toProfesor(profesorDto);
+
+        assertAll(() -> {
+            assertEquals(profesorDto.getNombre(), profesor.getNombre());
+            assertEquals(profesorDto.getApellido(), profesor.getApellido());
+            assertEquals(profesorDto.getDni(), profesor.getDni());
+            assertEquals(profesorDto.getCelular(), profesor.getCelular());
+            assertEquals(profesorDto.getDireccion(), profesor.getDireccion());
+            assertEquals(profesorDto.getSexo(), profesor.getSexo());
+            assertEquals(profesorDto.getTelefono(), profesor.getTelefono());
+            assertEquals(profesorDto.getMateriaEncargado(), profesor.getMateria().getNombre());
+        });
+
+    }
+
+    @Test
     void toListProfesorDtoTest(){
         DefaultClassInfoStrategy.getInstance()
                 .addExcludedField(Materia.class, "profesors")

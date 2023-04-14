@@ -10,13 +10,13 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/materianota")
+@RequestMapping("/v1")
 public class MateriaAlumnoController {
 
     private final MateriaAlumnoService materiaAlumnoService;
 
-    @PostMapping("/{idAlumno}")
-    public ResponseEntity<MateriaNotaDto> updateMateriaNota(@PathVariable("idAlumno") int id, @Valid @RequestBody MateriaNotaDto materiaNotaDto){
-        return ResponseEntity.ok(materiaAlumnoService.createPutMateriaNota(id, materiaNotaDto));
+    @PostMapping("/alumnos/{idAlumno}/materias/{idMateria}")
+    public ResponseEntity<MateriaNotaDto> updateMateriaNota(@PathVariable("idAlumno") int idAlumno, @PathVariable("idMateria") int idMateria, @Valid @RequestBody MateriaNotaDto materiaNotaDto){
+        return ResponseEntity.ok(materiaAlumnoService.createPutMateriaNota(idAlumno, idMateria, materiaNotaDto));
     }
 }

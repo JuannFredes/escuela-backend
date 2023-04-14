@@ -134,31 +134,50 @@ public class ProfesorServiceTest {
     }
 
     @Test
-    void saveProfesorTest(){
-        DefaultClassInfoStrategy.getInstance()
-                .addExcludedField(Materia.class, "profesors")
-                .addExcludedField(Materia.class, "materiaAlumnos");
+    void updateProfesorTest(){
 
-        Profesor profesor = podamFactory.manufacturePojo(Profesor.class);
+        ProfesorDto profesorDto = podamFactory.manufacturePojo(ProfesorDto.class);
+        Profesor profesor = profesorMapper.toProfesor(profesorDto);
+
+        when(profesorRepository.findById(profesorDto.getId())).thenReturn(Optional.of(profesor));
         when(profesorRepository.save(profesor)).thenReturn(profesor);
 
-        ProfesorDto profesorDto = profesorService.saveProfesor(profesor);
+        ProfesorDto profesorResponse = profesorService.updateProfesor(profesorDto.getId(), profesorDto);
+        verify(profesorRepository).save(profesor);
+        verify(profesorRepository).findById(profesorDto.getId());
+
+        assertAll(() -> {
+            assertEquals(profesorDto.getNombre(), profesorResponse.getNombre());
+            assertEquals(profesorDto.getApellido(), profesorResponse.getApellido());
+            assertEquals(profesorDto.getDni(), profesorResponse.getDni());
+            assertEquals(profesorDto.getCelular(), profesorResponse.getCelular());
+            assertEquals(profesorDto.getDireccion(), profesorResponse.getDireccion());
+            assertEquals(profesorDto.getSexo(), profesorResponse.getSexo());
+            assertEquals(profesorDto.getTelefono(), profesorResponse.getTelefono());
+        });
+
+    }
+    @Test
+    void saveProfesorTest(){
+
+        ProfesorDto profesorDto = podamFactory.manufacturePojo(ProfesorDto.class);
+        Profesor profesor = profesorMapper.toProfesor(profesorDto);
+
+        when(profesorRepository.save(profesor)).thenReturn(profesor);
+
+        ProfesorDto profesorResponse = profesorService.saveProfesor(profesorDto);
         verify(profesorRepository).save(profesor);
 
         assertAll(() -> {
-            assertEquals(profesor.getNombre(), profesorDto.getNombre());
-            assertEquals(profesor.getApellido(), profesorDto.getApellido());
-            assertEquals(profesor.getDni(), profesorDto.getDni());
-            assertEquals(profesor.getCelular(), profesorDto.getCelular());
-            assertEquals(profesor.getDireccion(), profesorDto.getDireccion());
-            assertEquals(profesor.getSexo(), profesorDto.getSexo());
-            assertEquals(profesor.getTelefono(), profesorDto.getTelefono());
-            assertEquals(Period.between(profesor.getFechaNacimiento(), LocalDate.now()).getYears(), profesorDto.getAge());
+            assertEquals(profesorDto.getNombre(), profesorResponse.getNombre());
+            assertEquals(profesorDto.getApellido(), profesorResponse.getApellido());
+            assertEquals(profesorDto.getDni(), profesorResponse.getDni());
+            assertEquals(profesorDto.getCelular(), profesorResponse.getCelular());
+            assertEquals(profesorDto.getDireccion(), profesorResponse.getDireccion());
+            assertEquals(profesorDto.getSexo(), profesorResponse.getSexo());
+            assertEquals(profesorDto.getTelefono(), profesorResponse.getTelefono());
         });
 
-        DefaultClassInfoStrategy.getInstance()
-                .removeExcludedField(Materia.class, "profesors")
-                .removeExcludedField(Materia.class, "materiaAlumnos");
     }
 
     @Test

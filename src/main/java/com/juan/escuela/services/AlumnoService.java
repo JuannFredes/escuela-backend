@@ -32,9 +32,10 @@ public class AlumnoService {
         return alumnoMapper.toAlumnoMateriasDto(alumno);
     }
 
-    public AlumnoDto putAlumnoById(Alumno newAlumno){
-        Alumno alumnoPut = alumnoRepository.findById(newAlumno.getId())
+    public AlumnoDto putAlumno(int id, AlumnoDto newAlumno){
+        Alumno alumnoPut = alumnoRepository.findById(id)
                 .map(alumno -> {
+                    alumno.setId(id);
                     alumno.setNombre(newAlumno.getNombre());
                     alumno.setApellido(newAlumno.getApellido());
                     alumno.setDni(newAlumno.getDni());
@@ -45,7 +46,7 @@ public class AlumnoService {
                     alumno.setDireccion(newAlumno.getDireccion());
                     alumno.setSexo(newAlumno.getSexo());
                     return alumnoRepository.save(alumno);})
-                .orElseThrow(() -> new AppException("no se encontro el alumno con el id: " + newAlumno.getId(), HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new AppException("no se encontro el alumno con el id: " + id, HttpStatus.NOT_FOUND));
 
         return alumnoMapper.toAlumnoDto(alumnoPut);
     }
@@ -58,8 +59,8 @@ public class AlumnoService {
         alumnoRepository.deleteById(id);
     }
 
-    public AlumnoDto saveAlumno(Alumno alumno) {
-        Alumno alumnoSave = alumnoRepository.save(alumno);
+    public AlumnoDto saveAlumno(AlumnoDto alumnoDto) {
+        Alumno alumnoSave = alumnoRepository.save(alumnoMapper.toAlumno(alumnoDto));
         return alumnoMapper.toAlumnoDto(alumnoSave);
     }
 

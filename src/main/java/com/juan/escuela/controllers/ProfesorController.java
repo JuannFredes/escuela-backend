@@ -1,7 +1,6 @@
 package com.juan.escuela.controllers;
 
 import com.juan.escuela.dto.ProfesorDto;
-import com.juan.escuela.models.Profesor;
 import com.juan.escuela.services.ProfesorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,14 +27,14 @@ public class ProfesorController {
         return ResponseEntity.ok(profesorService.getProfesorById(id));
     }
 
-    @PutMapping
-    public ResponseEntity<ProfesorDto> updateProfesor(@RequestBody Profesor profesor){
-        return ResponseEntity.ok(profesorService.updateProfesorById(profesor));
+    @PutMapping("/{id}")
+    public ResponseEntity<ProfesorDto> updateProfesor(@PathVariable int id, @RequestBody ProfesorDto profesorDto){
+        return ResponseEntity.ok(profesorService.updateProfesor(id, profesorDto));
     }
 
     @PostMapping
-    public ResponseEntity<ProfesorDto> saveProfesor(@Valid @RequestBody Profesor profesor){
-        return ResponseEntity.status(HttpStatus.CREATED).body(profesorService.saveProfesor(profesor));
+    public ResponseEntity<ProfesorDto> saveProfesor(@Valid @RequestBody ProfesorDto profesorDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(profesorService.saveProfesor(profesorDto));
     }
 
     @DeleteMapping("/{id}")

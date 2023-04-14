@@ -60,6 +60,20 @@ public class MateriaMapperTest {
     }
 
     @Test
+    void toMateriaTest(){
+
+        MateriaDto materiaDto = MateriaDto.builder()
+                .id(2)
+                .nombre("Lengua")
+                .build();
+
+        Materia materia = materiaMapper.toMateria(materiaDto);
+
+        assertEquals(materiaDto.getId(), materia.getId());
+        assertEquals(materiaDto.getNombre(), materia.getNombre());
+    }
+
+    @Test
     void toListMateriaDtoTest(){
 
         DefaultClassInfoStrategy.getInstance()

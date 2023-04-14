@@ -17,5 +17,8 @@ public interface ProfesorMapper {
     )
     ProfesorDto toProfesorDto(Profesor profesor);
 
+    @Mapping(target = "materia.nombre", source = "materiaEncargado")
+    Profesor toProfesor(ProfesorDto profesorDto);
+
     List<ProfesorDto> toListProfesorDto(List<Profesor> profesors);
 }

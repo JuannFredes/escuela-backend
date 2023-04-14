@@ -57,16 +57,16 @@ class MateriaAlumnoControllerTest {
 
         MateriaNotaDto materiaNotaDto = podamFactory.manufacturePojo(MateriaNotaDto.class);
 
-        when(materiaAlumnoService.createPutMateriaNota(1, materiaNotaDto)).thenReturn(materiaNotaDto);
+        when(materiaAlumnoService.createPutMateriaNota(1, materiaNotaDto.getId(), materiaNotaDto)).thenReturn(materiaNotaDto);
 
-        mockMvc.perform(post("/v1/materianota/{idAlumno}", 1)
+        mockMvc.perform(post("/v1/alumnos/{idAlumno}/materias/{idMateria}", 1, materiaNotaDto.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsBytes(materiaNotaDto)))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id", is(materiaNotaDto.getId())))
                 .andExpect(jsonPath("$.nombre", is(materiaNotaDto.getNombre())))
                 .andExpect(jsonPath("$.nota", is((int)materiaNotaDto.getNota())));
-        verify(materiaAlumnoService).createPutMateriaNota(1, materiaNotaDto);
+        verify(materiaAlumnoService).createPutMateriaNota(1, materiaNotaDto.getId(), materiaNotaDto);
 
     }
 }

@@ -15,7 +15,7 @@ public interface MateriaMapper {
 
     @Named(value = "toMateriaDto")
     MateriaDto toMateriaDto(Materia materia);
-
+    Materia toMateria(MateriaDto materiaDto);
     @IterableMapping(qualifiedByName = "toMateriaDto")
     List<MateriaDto> toListMateriaDto(List<Materia> materias);
 

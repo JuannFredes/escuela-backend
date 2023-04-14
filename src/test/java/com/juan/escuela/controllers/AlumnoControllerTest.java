@@ -1,6 +1,5 @@
 package com.juan.escuela.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.juan.escuela.dto.AlumnoDto;
@@ -10,14 +9,10 @@ import com.juan.escuela.services.AlumnoService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
@@ -27,9 +22,6 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
@@ -97,24 +89,18 @@ class AlumnoControllerTest {
 
     @Test
     void updateAlumnoTest() throws Exception {
-        DefaultClassInfoStrategy.getInstance()
-                .addExcludedField(Alumno.class, "materiaAlumnos");
-
-        Alumno alumno = podamFactory.manufacturePojo(Alumno.class);
 
         AlumnoDto alumnoDto = podamFactory.manufacturePojo(AlumnoDto.class);
 
-        when(alumnoService.putAlumnoById(alumno)).thenReturn(alumnoDto);
+        when(alumnoService.putAlumno(alumnoDto.getId(), alumnoDto)).thenReturn(alumnoDto);
 
-        mockMvc.perform(put("/v1/alumnos")
+        mockMvc.perform(put("/v1/alumnos/{id}", alumnoDto.getId())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsBytes(alumno)))
+                        .content(mapper.writeValueAsBytes(alumnoDto)))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id", is(alumnoDto.getId())))
                 .andExpect(jsonPath("$.dni", is(alumnoDto.getDni())));
-        verify(alumnoService).putAlumnoById(alumno);
-        DefaultClassInfoStrategy.getInstance()
-                .removeExcludedField(Alumno.class, "materiaAlumnos");
+        verify(alumnoService).putAlumno(alumnoDto.getId(), alumnoDto);
 
     }
 
@@ -123,19 +109,17 @@ class AlumnoControllerTest {
         DefaultClassInfoStrategy.getInstance()
                 .addExcludedField(Alumno.class, "materiaAlumnos");
 
-        Alumno alumno = podamFactory.manufacturePojo(Alumno.class);
-
         AlumnoDto alumnoDto = podamFactory.manufacturePojo(AlumnoDto.class);
 
-        when(alumnoService.saveAlumno(alumno)).thenReturn(alumnoDto);
+        when(alumnoService.saveAlumno(alumnoDto)).thenReturn(alumnoDto);
 
         mockMvc.perform(post("/v1/alumnos")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsBytes(alumno)))
+                .content(mapper.writeValueAsBytes(alumnoDto)))
                 .andExpect(status().is(201))
                 .andExpect(jsonPath("$.id", is(alumnoDto.getId())))
                 .andExpect(jsonPath("$.dni", is(alumnoDto.getDni())));
-        verify(alumnoService).saveAlumno(alumno);
+        verify(alumnoService).saveAlumno(alumnoDto);
 
         DefaultClassInfoStrategy.getInstance()
                 .removeExcludedField(Alumno.class, "materiaAlumnos");

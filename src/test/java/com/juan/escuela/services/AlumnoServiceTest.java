@@ -169,30 +169,55 @@ public class AlumnoServiceTest {
 
     @Test
     void saveAlumnoTest(){
-        DefaultClassInfoStrategy.getInstance()
-                .addExcludedField(Alumno.class, "materiaAlumnos");
 
-        Alumno alumno = podamFactory.manufacturePojo(Alumno.class);
+        AlumnoDto alumnoDto = podamFactory.manufacturePojo(AlumnoDto.class);
+        Alumno alumno = alumnoMapper.toAlumno(alumnoDto);
+
         when(alumnoRepository.save(alumno)).thenReturn(alumno);
 
-        AlumnoDto alumnoDto = alumnoService.saveAlumno(alumno);
+        AlumnoDto alumnoResponse = alumnoService.saveAlumno(alumnoDto);
         verify(alumnoRepository).save(alumno);
 
         assertAll( ()-> {
-            assertEquals(alumno.getNombre(), alumnoDto.getNombre());
-            assertEquals(alumno.getApellido(), alumnoDto.getApellido());
-            assertEquals(alumno.getDni(), alumnoDto.getDni());
-            assertEquals(alumno.getNumeroEmergencia(), alumnoDto.getNumeroEmergencia());
-            assertEquals(alumno.getEmail(), alumnoDto.getEmail());
-            assertEquals(alumno.getDivision(), alumnoDto.getDivision());
-            assertEquals(alumno.getCelular(), alumnoDto.getCelular());
-            assertEquals(alumno.getAnio(), alumnoDto.getAnio());
-            assertEquals(alumno.getSexo(), alumnoDto.getSexo());
-            assertEquals(alumno.getTelefono(), alumnoDto.getTelefono());
-            assertEquals(Period.between(alumno.getFechaNacimiento(), LocalDate.now()).getYears(), alumnoDto.getAge());
+            assertEquals(alumnoDto.getNombre(), alumnoResponse.getNombre());
+            assertEquals(alumnoDto.getApellido(), alumnoResponse.getApellido());
+            assertEquals(alumnoDto.getDni(), alumnoResponse.getDni());
+            assertEquals(alumnoDto.getNumeroEmergencia(), alumnoResponse.getNumeroEmergencia());
+            assertEquals(alumnoDto.getEmail(), alumnoResponse.getEmail());
+            assertEquals(alumnoDto.getDivision(), alumnoResponse.getDivision());
+            assertEquals(alumnoDto.getCelular(), alumnoResponse.getCelular());
+            assertEquals(alumnoDto.getAnio(), alumnoResponse.getAnio());
+            assertEquals(alumnoDto.getSexo(), alumnoResponse.getSexo());
+            assertEquals(alumnoDto.getTelefono(), alumnoResponse.getTelefono());
         });
 
-        DefaultClassInfoStrategy.getInstance()
-                .removeExcludedField(Alumno.class, "materiaAlumnos");
+    }
+
+    @Test
+    void putAlumnoTest(){
+
+        AlumnoDto alumnoDto = podamFactory.manufacturePojo(AlumnoDto.class);
+        Alumno alumno = alumnoMapper.toAlumno(alumnoDto);
+
+        when(alumnoRepository.findById(alumnoDto.getId())).thenReturn(Optional.of(alumno));
+        when(alumnoRepository.save(alumno)).thenReturn(alumno);
+
+        AlumnoDto alumnoResponse = alumnoService.putAlumno(alumnoDto.getId(), alumnoDto);
+        verify(alumnoRepository).save(alumno);
+        verify(alumnoRepository).findById(alumnoDto.getId());
+
+        assertAll( ()-> {
+            assertEquals(alumnoDto.getNombre(), alumnoResponse.getNombre());
+            assertEquals(alumnoDto.getApellido(), alumnoResponse.getApellido());
+            assertEquals(alumnoDto.getDni(), alumnoResponse.getDni());
+            assertEquals(alumnoDto.getNumeroEmergencia(), alumnoResponse.getNumeroEmergencia());
+            assertEquals(alumnoDto.getEmail(), alumnoResponse.getEmail());
+            assertEquals(alumnoDto.getDivision(), alumnoResponse.getDivision());
+            assertEquals(alumnoDto.getCelular(), alumnoResponse.getCelular());
+            assertEquals(alumnoDto.getAnio(), alumnoResponse.getAnio());
+            assertEquals(alumnoDto.getSexo(), alumnoResponse.getSexo());
+            assertEquals(alumnoDto.getTelefono(), alumnoResponse.getTelefono());
+        });
+
     }
 }

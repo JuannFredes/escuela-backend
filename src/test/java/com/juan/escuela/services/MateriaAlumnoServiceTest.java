@@ -18,6 +18,8 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,21 +41,25 @@ class MateriaAlumnoServiceTest {
                         .id(2)
                         .nota((short) 8)
                         .build();
+        AlumnoMateriaKeys alumnoMateriaKeys = new AlumnoMateriaKeys(materiaNotaDto.getId(), 1);
         MateriaAlumno materiaAlumno = MateriaAlumno.builder()
-                .alumnoMateriaKeys(new AlumnoMateriaKeys(materiaNotaDto.getId(), 1))
+                .alumnoMateriaKeys(alumnoMateriaKeys)
                 .alumno(new Alumno(1))
                 .materia(new Materia(materiaNotaDto.getId()))
                 .nota(materiaNotaDto.getNota())
                 .build();
 
-        when(materiaAlumnoRepository.save(any())).thenReturn(materiaAlumno);
-        MateriaNotaDto materiaNotaDtoSave = materiaAlumnoService.createPutMateriaNota(1, materiaNotaDto);
+        when(materiaAlumnoRepository.alumnoMateriaExistsById(materiaNotaDto.getId(), 1)).thenReturn((short)1);
+        when(materiaAlumnoRepository.save(materiaAlumno)).thenReturn(materiaAlumno);
+        MateriaNotaDto materiaNotaDtoSave = materiaAlumnoService.createPutMateriaNota(1, materiaNotaDto.getId(), materiaNotaDto);
 
         verify(materiaAlumnoRepository).save(materiaAlumno);
+        verify(materiaAlumnoRepository).alumnoMateriaExistsById(materiaNotaDto.getId(), 1);
+
         assertAll(() -> {
-            assertEquals(materiaAlumno.getNota(), materiaNotaDtoSave.getNota());
-            assertEquals(materiaAlumno.getMateria().getId(), materiaNotaDtoSave.getId());
-            assertEquals(materiaAlumno.getMateria().getNombre(), materiaNotaDtoSave.getNombre());
+            assertEquals(materiaNotaDto.getNota(), materiaNotaDtoSave.getNota());
+            assertEquals(materiaNotaDto.getId(), materiaNotaDtoSave.getId());
+            assertEquals(materiaNotaDto.getNombre(), materiaNotaDtoSave.getNombre());
         });
     }
 }

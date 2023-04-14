@@ -60,6 +60,28 @@ public class AlumnoMapperTest {
     }
 
     @Test
+    void toAlumnoTest(){
+
+        AlumnoDto alumnoDto = podamFactory.manufacturePojo(AlumnoDto.class);
+
+        Alumno alumno = alumnoMapper.toAlumno(alumnoDto);
+
+        assertAll( ()-> {
+            assertEquals(alumnoDto.getNombre(), alumno.getNombre());
+            assertEquals(alumnoDto.getApellido(), alumno.getApellido());
+            assertEquals(alumnoDto.getDni(), alumno.getDni());
+            assertEquals(alumnoDto.getNumeroEmergencia(), alumno.getNumeroEmergencia());
+            assertEquals(alumnoDto.getEmail(), alumno.getEmail());
+            assertEquals(alumnoDto.getDivision(), alumno.getDivision());
+            assertEquals(alumnoDto.getCelular(), alumno.getCelular());
+            assertEquals(alumnoDto.getAnio(), alumno.getAnio());
+            assertEquals(alumnoDto.getSexo(), alumno.getSexo());
+            assertEquals(alumnoDto.getTelefono(), alumno.getTelefono());
+        });
+
+    }
+
+    @Test
     void toListAlumnoDtoTest() {
         DefaultClassInfoStrategy.getInstance()
                 .addExcludedField(Alumno.class, "materiaAlumnos");

@@ -1,6 +1,5 @@
 package com.juan.escuela.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.juan.escuela.dto.ProfesorDto;
@@ -10,7 +9,6 @@ import com.juan.escuela.services.ProfesorService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -92,50 +90,36 @@ class ProfesorControllerTest {
 
     @Test
     void updateProfesorTest() throws Exception {
-        DefaultClassInfoStrategy.getInstance()
-                .addExcludedField(Materia.class, "profesors")
-                .addExcludedField(Materia.class, "materiaAlumnos");
 
-        Profesor profesor = podamFactory.manufacturePojo(Profesor.class);
         ProfesorDto profesorDto = podamFactory.manufacturePojo(ProfesorDto.class);
 
-        when(profesorService.updateProfesorById(profesor)).thenReturn(profesorDto);
+        when(profesorService.updateProfesor(profesorDto.getId(), profesorDto)).thenReturn(profesorDto);
 
-        mockMvc.perform(put("/v1/profesores")
+        mockMvc.perform(put("/v1/profesores/{id}", profesorDto.getId())
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsBytes(profesor)))
+                .content(mapper.writeValueAsBytes(profesorDto)))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id", is(profesorDto.getId())))
                 .andExpect(jsonPath("$.email", is(profesorDto.getEmail())));
-        verify(profesorService).updateProfesorById(profesor);
+        verify(profesorService).updateProfesor(profesorDto.getId(), profesorDto);
 
-        DefaultClassInfoStrategy.getInstance()
-                .removeExcludedField(Materia.class, "profesors")
-                .removeExcludedField(Materia.class, "materiaAlumnos");
     }
 
     @Test
     void saveProfesorTest() throws Exception {
-        DefaultClassInfoStrategy.getInstance()
-                .addExcludedField(Materia.class, "profesors")
-                .addExcludedField(Materia.class, "materiaAlumnos");
 
-        Profesor profesor = podamFactory.manufacturePojo(Profesor.class);
         ProfesorDto profesorDto = podamFactory.manufacturePojo(ProfesorDto.class);
 
-        when(profesorService.saveProfesor(profesor)).thenReturn(profesorDto);
+        when(profesorService.saveProfesor(profesorDto)).thenReturn(profesorDto);
 
         mockMvc.perform(post("/v1/profesores")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsBytes(profesor)))
+                .content(mapper.writeValueAsBytes(profesorDto)))
                 .andExpect(status().is(201))
                 .andExpect(jsonPath("$.id", is(profesorDto.getId())))
                 .andExpect(jsonPath("$.telefono", is(profesorDto.getTelefono())));
-        verify(profesorService).saveProfesor(profesor);
+        verify(profesorService).saveProfesor(profesorDto);
 
-        DefaultClassInfoStrategy.getInstance()
-                .removeExcludedField(Materia.class, "profesors")
-                .removeExcludedField(Materia.class, "materiaAlumnos");
     }
 
     @Test

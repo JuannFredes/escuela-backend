@@ -2,7 +2,6 @@ package com.juan.escuela.controllers;
 
 import com.juan.escuela.dto.AlumnoDto;
 import com.juan.escuela.dto.AlumnoMateriasDto;
-import com.juan.escuela.models.Alumno;
 import com.juan.escuela.services.AlumnoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,7 @@ public class AlumnoController {
     private final AlumnoService alumnoService;
 
     @GetMapping
-    public ResponseEntity<List<AlumnoDto>> getAlumnos(){
+    public ResponseEntity<List<AlumnoDto>> getAll(){
         return ResponseEntity.ok(alumnoService.getAllAlumnos());
     }
 
@@ -29,13 +28,13 @@ public class AlumnoController {
         return ResponseEntity.ok(alumnoService.getAlumnoById(id));
     }
 
-    @PutMapping
-    public ResponseEntity<AlumnoDto> updateAlumno(@RequestBody Alumno alumno){
-        return ResponseEntity.ok(alumnoService.putAlumnoById(alumno));
+    @PutMapping("/{id}")
+    public ResponseEntity<AlumnoDto> updateAlumno(@PathVariable int id,@RequestBody AlumnoDto alumnoDto){
+        return ResponseEntity.ok(alumnoService.putAlumno(id, alumnoDto));
     }
 
     @PostMapping
-    public ResponseEntity<AlumnoDto> saveAlumno(@RequestBody @Valid Alumno alumno) {
+    public ResponseEntity<AlumnoDto> saveAlumno(@RequestBody @Valid AlumnoDto alumno) {
         AlumnoDto alumnoDto = alumnoService.saveAlumno(alumno);
         return ResponseEntity.status(HttpStatus.CREATED).body(alumnoDto);
     }

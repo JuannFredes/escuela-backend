@@ -1,11 +1,9 @@
 package com.juan.escuela.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.juan.escuela.dto.MateriaDetailsDto;
 import com.juan.escuela.dto.MateriaDto;
-import com.juan.escuela.models.Materia;
 import com.juan.escuela.services.MateriaService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -95,28 +93,27 @@ class MateriaControllerTest {
     @Test
     void putMateriaTest() throws Exception {
 
-        Materia materia = Materia.builder()
+        MateriaDto materiaDto = MateriaDto.builder()
                 .id(2)
                 .nombre("Materia")
                 .build();
-        MateriaDto materiaDto = podamFactory.manufacturePojo(MateriaDto.class);
 
-        when(materiaService.putMateriaById(materia)).thenReturn(materiaDto);
+        when(materiaService.putMateria(materiaDto.getId(), materiaDto)).thenReturn(materiaDto);
 
-        mockMvc.perform(put("/v1/materias")
+        mockMvc.perform(put("/v1/materias/{id}", materiaDto.getId())
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsBytes(materia)))
+                .content(mapper.writeValueAsBytes(materiaDto)))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id",is(materiaDto.getId())))
                 .andExpect(jsonPath("$.nombre",is(materiaDto.getNombre())));
-        verify(materiaService).putMateriaById(materia);
+        verify(materiaService).putMateria(materiaDto.getId(), materiaDto);
 
     }
 
     @Test
     void saveMateria() throws Exception {
 
-        Materia materia = Materia.builder()
+        MateriaDto materia = MateriaDto.builder()
                 .id(2)
                 .nombre("Materia")
                 .build();
