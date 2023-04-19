@@ -5,4 +5,5 @@ RUN apk update && apk upgrade
 RUN apk add openjdk11
 RUN apk add maven
 RUN mvn clean package
+EXPOSE 8080
 CMD ["sh", "-c", "mvn liquibase:update -Pprod && java -jar -Dspring.profiles.active=prod /opt/app/target/escuela-0.0.1-SNAPSHOT.jar"]
