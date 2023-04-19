@@ -1,0 +1,15 @@
+com/juan/escuela/mappers/MateriaMapperTest.class
+com/juan/escuela/services/MateriaServiceTest.class
+com/juan/escuela/services/ProfesorServiceTest.class
+com/juan/escuela/controllers/ProfesorControllerTest.class
+com/juan/escuela/repositories/MateriaAlumnoRepositoryTest.class
+com/juan/escuela/repositories/ProfesorRepositoryTest.class
+com/juan/escuela/mappers/AlumnoMapperTest.class
+com/juan/escuela/controllers/MateriaAlumnoControllerTest.class
+com/juan/escuela/repositories/MateriaRepositoryTest.class
+com/juan/escuela/controllers/AlumnoControllerTest.class
+com/juan/escuela/controllers/MateriaControllerTest.class
+com/juan/escuela/services/MateriaAlumnoServiceTest.class
+com/juan/escuela/repositories/AlumnoRepositoryTest.class
+com/juan/escuela/services/AlumnoServiceTest.class
+com/juan/escuela/mappers/ProfesorMapperTest.class

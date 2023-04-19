@@ -1,9 +1,5 @@
-FROM alpine:3.17.3
-WORKDIR /opt/app
-COPY . .
-RUN apk update && apk upgrade
-RUN apk add openjdk11
-RUN apk add maven
-RUN mvn clean package
+FROM amazoncorretto:11-alpine-jdk
+MAINTAINER JUANFRDS
+COPY target/escuela-0.0.1-SNAPSHOT.jar SpringBoot-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
-CMD ["sh", "-c", "mvn liquibase:update -Pprod && java -jar -Dspring.profiles.active=prod /opt/app/target/escuela-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","/SpringBoot-0.0.1-SNAPSHOT.jar"]
