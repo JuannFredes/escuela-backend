@@ -6,14 +6,22 @@ La API permite crear, modificar, listar y eliminar datos de estudiantes, profeso
 
 Desarrolle este proyecto en Java 11 utilizando el framework Spring Boot. También he usado el lenguaje SQL para diseñar y configurar la base de datos MySQL.
 
-## Instalación
+## <a name="despliegue"></a>Despliegue
 
-### Requerimientos generakes:
+Deployee mi Api Rest de forma gratuita en [Render](https://render.com/), donde podra probar la Api Rest sin necesidad de instalarla. 
+
+El link para acceder a la [documentación](#documentacion) de la misma es https://escuela-app.onrender.com/escuela/swagger-ui.html. En ella, mediante la documentation en Swagger, podra informarse como funciona e interactuar con la Api desde alli. Agregue datos ficticios a la base de datos para que sea mas interactiva.
+
+**NOTA:** La Api, al ser desplegada en un servicio gratuito, puede fallar o ir lenta. En ese caso puede [instalarla en su maquina de forma tradicional](#tradicional) o [arrancarla desde un contenedor](#docker) mediante [Docker](https://www.docker.com/) siguiendo las instrucciones a continuación.
+
+## <a name="instalacion"></a>Instalación
+
+### Requerimientos generales:
 - [Java 11](https://www.java.com/en/) 
 - [Maven](https://maven.apache.org/download.cgi)
 - [MySQL](https://www.mysql.com/downloads/)
 
-#### Corriendo la aplicación desde la terminal:
+#### <a name="tradicional"></a>Instalación de forma tradicional:
 1. Clona el repositorio
    ```
    git clone https://github.com/JuannFredes/escuela-backend.git
@@ -44,29 +52,36 @@ Desarrolle este proyecto en Java 11 utilizando el framework Spring Boot. Tambié
    ```
    java -jar target/escuela-0.0.1-SNAPSHOT.jar
    ```
-#### Corriendo la aplicación con Docker:
 
-Instale [docker](https://www.docker.com/) y [docker compose](https://docs.docker.com/compose/) en su computadora y corra el siguiente comando: 
+Para utilizarla siga la [documentacion](#documentacion) proporcionada.
+
+#### <a name="docker"></a>Instalación mediante Docker:
+
+Instale [docker](https://www.docker.com/) y [docker compose](https://docs.docker.com/compose/) en su computadora y corra el siguiente comando en una terminal abierta dentro de la ubicación del proyecto: 
 ```
 docker compose up -d
 ```
-Espere un tiempo a que la aplicación arranque y estará lista para usar. Cuando quiera dejar de probarla solo,y no ocupe recursos, ponga el comando:
+Espere un tiempo a que la aplicación arranque y estará lista para usar.
+Para utilizarla siga la [documentacion](#documentacion) proporcionada.
+
+Cuando quiera dejar de probarla solo,y no ocupe recursos, ponga el comando:
 ```
 docker compose down
 ```
+Para usarla siga la [documentacion](#documentacion) proporcionada.
 
 ## Herramientas, Tecnologías y tecnicas utilizadas
 
 ### Tecnologias principales: 
-- [Java](https://www.java.com/en/) 
-- [Spring](https://spring.io/)
-- [MySQL](https://www.mysql.com/)
+- [Java 11](https://www.java.com/en/) 
+- [Spring Boot 2.7.5](https://spring.io/)
+- [MySQL 8](https://www.mysql.com/)
 - [Maven](https://maven.apache.org/)
 ### Herramientas secundarias:
 - [Hibernate](https://hibernate.org/)
 - [MapStruct](https://mapstruct.org/)
 - [Lombok](https://projectlombok.org/)
-- [Liquibase](https://www.liquibase.org/)
+- [Liquibase](https://www.liquibase.org/) 
 - [JUnit](https://junit.org/)
 - [Mockito](https://site.mockito.org/)
 - [Podam](https://mtedone.github.io/podam/)
@@ -97,8 +112,10 @@ En los controllers se utiliza los endpoints y los metodos http para que el usuar
 - #### Test
 En los test controlo todas la capas de mi aplicación. Creando objetos especificos para poder testear cada metodos de las diferentes clases, en mi caso para poder crear elementos de forma aleatoria y sencilla utilize [Podam](https://mtedone.github.io/podam/). Tambien utilice [Mockito](https://site.mockito.org/) que permite simular obtejos y comportamientos. Una vez tenía los objetos, los testaba con [JUnit](https://junit.org/junit5/) y las herramientas para testear que proporciona [Spring](https://spring.io/). También utilizo [H2](https://www.h2database.com/html/main.html), que es una base de datos en memoria, para probar los repositories. De esta manera, pude asegurarme de que todos los métodos estuvieran funcionando correctamente y de que los datos se estuvieran procesando de manera adecuada. NOTA: Aunque en este caso hice todos los test al final de todo, en realidad es una buena práctica hacerlo apenas terminas de desarrollar cada clase.  
 
-## Documentación de API
+## <a name="documentacion"></a>Documentación de API
 
-La documentación de la API está disponible en tiempo de ejecución de la aplicación en la siguiente URL: http://localhost:8080/escuela/swagger-ui.html
+- La documentación de la API, ya [desplegada](#despliegue), está disponible en el siguierte link: https://escuela-app.onrender.com/escuela/swagger-ui.html
 
-Para ejecutar la aplicación, siga las instrucciones en la sección de instalación y configuración de este documento. Una vez ejecutándose la aplicación vaya al link proporcionado para ver la documentación del funcionamiento de la API.
+- La documentación de la API, [instalada](#instalacion) y en tiempo de ejecucion, está disponible en el link: http://localhost:8080/escuela/swagger-ui.html
+
+La documentación al estar hecha con [Swagger](https://swagger.io/) permite no solo informarse de que forma funciona la Api, sino que tambien es posible interactuar con ella. 
