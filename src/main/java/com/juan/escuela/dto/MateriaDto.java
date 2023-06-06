@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,6 +17,8 @@ public class MateriaDto {
 
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private int id;
+    @NotNull(message = "el nombre de la materia no puede ser nulo")
+    @NotBlank(message = "el nombre de la materia no puede estar vacio")
     private String nombre;
 
 }
