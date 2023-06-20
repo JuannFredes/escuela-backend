@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+    <USUARIOS_ROLES
+        id_usuario="1"
+        id_rol="1"
+    />
+    <USUARIOS_ROLES
+            id_usuario="1"
+            id_rol="2"
+    />
+    <USUARIOS_ROLES
+            id_usuario="2"
+            id_rol="2"
+    />
+</dataset>

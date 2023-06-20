@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <usuarios
+            id="1"
+            username="director"
+            password="password1"
+    />
+
+    <usuarios
+            id="2"
+            username="secretaria"
+            password="password2"
+    />
+</dataset>

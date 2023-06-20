@@ -3,10 +3,11 @@ package com.juan.escuela.security;
 import com.juan.escuela.models.Usuario;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class UserDatailsImpl implements UserDetails {
@@ -15,7 +16,10 @@ public class UserDatailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        Collection<? extends GrantedAuthority> authorities = this.usuario.getRoles().stream()
+                .map(rol -> new SimpleGrantedAuthority("ROLE_".concat(rol.getName().name())))
+                .collect(Collectors.toSet());
+        return authorities;
     }
 
     @Override
@@ -46,9 +50,5 @@ public class UserDatailsImpl implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public String getRol() {
-        return usuario.getRol();
     }
 }
