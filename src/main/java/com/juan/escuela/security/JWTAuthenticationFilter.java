@@ -19,20 +19,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
-        UserDatailsImpl usuario = null;
+        AuthCredentials authCredentials = new AuthCredentials();
 
         try {
-            usuario = new UserDatailsImpl(
-                    new ObjectMapper().readValue(request.getReader(), Usuario.class)
-            );
+            authCredentials = new ObjectMapper().readValue(request.getReader(), AuthCredentials.class);
         } catch (IOException e) {
 
         }
 
+
         UsernamePasswordAuthenticationToken userPat = new UsernamePasswordAuthenticationToken(
-                usuario.getUsername(),
-                usuario.getPassword(),
-                usuario.getAuthorities()
+                authCredentials.getUsername(),
+                authCredentials.getPassword(),
+                Collections.emptyList()
         );
 
         return getAuthenticationManager().authenticate(userPat);
@@ -43,8 +42,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
-        UserDatailsImpl userDatails = (UserDatailsImpl) authResult.getPrincipal();
-        String token = TokenUtils.createToken(userDatails.getUsername());
+        UserDetailsImpl userDatails = (UserDetailsImpl) authResult.getPrincipal();
+        String token = TokenUtils.createToken(userDatails.getUsername(), userDatails.getAuthorities());
         response.addHeader("Authorization", "Bearer " + token);
         response.getWriter().flush();
 

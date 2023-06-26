@@ -25,7 +25,7 @@ public class Usuario {
     @NotNull
     @NotBlank
     @Column(name = "username")
-    private String user;
+    private String username;
     @NotNull
     @NotBlank
     private String password;

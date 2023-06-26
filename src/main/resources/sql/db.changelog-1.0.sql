@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `alumnos` (
   UNIQUE KEY `dni` (`dni`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `email_2` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 --rollback drop table alumnos;
 
 --changeset juan:2
@@ -68,9 +68,26 @@ CREATE TABLE IF NOT EXISTS `profesores` (
 --changeset juan:5
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user` varchar(30) NOT NULL UNIQUE,
+  `username` varchar(30) NOT NULL UNIQUE,
   `password` varchar(255) NOT NULL,
-  `rol` varchar(30) NOT NULL,
   PRIMARY KEY(`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 --rollback drop table usuarios;
+
+--changeset juan:6
+CREATE TABLE IF NOT EXISTS `rols` (
+  `id` int NOT NULL,
+  `name` ENUM('ADMIN', 'USUARIO', 'INVITADO'),
+  PRIMARY KEY(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+--rollback drop table roles;
+
+--changeset juan:7
+CREATE TABLE IF NOT EXISTS `USUARIOS_ROLES` (
+  `id_usuario` int NOT NULL,
+  `id_rol` int NOT NULL,
+  PRIMARY KEY(`id_usuario`, `id_rol`),
+  FOREIGN KEY(`id_usuario`) REFERENCES `usuarios`(`id`),
+  FOREIGN KEY(`id_rol`) REFERENCES `rols`(`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+--rollback drop table USUARIOS_ROLES;

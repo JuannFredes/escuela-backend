@@ -2,6 +2,7 @@ package com.juan.escuela.security;
 
 import com.juan.escuela.models.Usuario;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +11,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-public class UserDatailsImpl implements UserDetails {
+@Getter
+public class UserDetailsImpl implements UserDetails {
 
     private final Usuario usuario;
 
@@ -29,7 +31,7 @@ public class UserDatailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return usuario.getUser();
+        return usuario.getUsername();
     }
 
     @Override

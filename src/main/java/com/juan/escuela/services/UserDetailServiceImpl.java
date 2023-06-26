@@ -1,8 +1,9 @@
-package com.juan.escuela.security;
+package com.juan.escuela.services;
 
 import com.juan.escuela.exceptions.AppException;
 import com.juan.escuela.models.Usuario;
 import com.juan.escuela.repositories.UsuarioRepository;
+import com.juan.escuela.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +22,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
         Usuario usuario = usuarioRepository.getUser(user)
                 .orElseThrow(() -> new AppException("el usuario no existe", HttpStatus.NOT_FOUND));
 
-        return new UserDatailsImpl(usuario);
+        return new UserDetailsImpl(usuario);
     }
 }
