@@ -1,9 +1,6 @@
 package com.juan.escuela.dto;
 
-import com.juan.escuela.models.ERol;
-import com.juan.escuela.models.Rol;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,16 +8,21 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
-public class UsuarioDto {
+public class RegistroDto {
 
     @NotNull
     @NotBlank
     private String username;
-    private String token;
+
+    @NotNull
+    @NotBlank
+    private String password;
+
+    @NotNull
+    @NotBlank
     private Set<String> roles;
 
 }

@@ -24,13 +24,13 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioDtos);
     }
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<UsuarioDto> saveUsuario(@RequestBody UsuarioDto usuarioDto) {
         usuarioDto.setPassword(passwordEncoder.encode(usuarioDto.getPassword()));//encripto la contraseña apenas se recibe
         UsuarioDto usuarioDtoSave = usuariosService.createUser(usuarioDto);
 
         return ResponseEntity.ok(usuarioDtoSave);
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable int id){

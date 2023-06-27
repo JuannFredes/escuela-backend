@@ -26,15 +26,12 @@ public class UsuariosService {
 
     public List<UsuarioDto> getAllUser() {
         List<Usuario> usuarios = (List<Usuario>) usuarioRepository.findAll();
-        List<UsuarioDto> usuarioDtos = usuarios.stream()
-                .map(user -> {
-                    user.setPassword("******");
-                    return usuarioMapper.toUsuarioDto(user);})
-                .collect(Collectors.toList());
+        List<UsuarioDto> usuarioDtos = usuarioMapper.toListUsuarioDto(usuarios);
+       // usuarioDtos.forEach(user -> user.setToken("*****"));
 
         return usuarioDtos;
     }
-    public UsuarioDto createUser(UsuarioDto usuarioDto) {
+    /*public UsuarioDto createUser(UsuarioDto usuarioDto) {
         Set<Rol> roles = usuarioDto.getRoles().stream()
                 .map(rol -> rolRepository.getRol(rol)
                         .orElseThrow(() -> new AppException("el rol indicado no existe", HttpStatus.BAD_REQUEST)))
@@ -50,7 +47,7 @@ public class UsuariosService {
         Usuario usuarioSave = usuarioRepository.save(usuario);
 
         return usuarioMapper.toUsuarioDto(usuarioSave);
-    }
+    }*/
 
     @Transactional
     public void deleteUsuario(int id) {

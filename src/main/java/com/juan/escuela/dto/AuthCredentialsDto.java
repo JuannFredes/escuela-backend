@@ -1,26 +1,23 @@
 package com.juan.escuela.dto;
 
-import com.juan.escuela.models.ERol;
-import com.juan.escuela.models.Rol;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
-public class UsuarioDto {
+public class AuthCredentialsDto {
 
     @NotNull
     @NotBlank
     private String username;
-    private String token;
-    private Set<String> roles;
+
+    @NotNull
+    @NotBlank
+    private String password;
 
 }

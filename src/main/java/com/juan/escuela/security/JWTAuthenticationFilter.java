@@ -1,7 +1,7 @@
-package com.juan.escuela.security;
+/*package com.juan.escuela.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.juan.escuela.models.Usuario;
+import com.juan.escuela.dto.AuthCredentialsDto;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -19,18 +19,18 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
-        AuthCredentials authCredentials = new AuthCredentials();
+        AuthCredentialsDto authCredentialsDto = new AuthCredentialsDto();
 
         try {
-            authCredentials = new ObjectMapper().readValue(request.getReader(), AuthCredentials.class);
+            authCredentialsDto = new ObjectMapper().readValue(request.getReader(), AuthCredentialsDto.class);
         } catch (IOException e) {
 
         }
 
 
         UsernamePasswordAuthenticationToken userPat = new UsernamePasswordAuthenticationToken(
-                authCredentials.getUsername(),
-                authCredentials.getPassword(),
+                authCredentialsDto.getUsername(),
+                authCredentialsDto.getPassword(),
                 Collections.emptyList()
         );
 
@@ -49,4 +49,4 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         super.successfulAuthentication(request, response, chain, authResult);
     }
-}
+}*/

@@ -30,7 +30,6 @@ public class UsuarioMapperTest {
     void toUsuario() {
         UsuarioDto usuarioExpected = UsuarioDto.builder()
                 .username("prueba")
-                .password("154425")
                 .roles(Set.of("USUARIO", "INVITADO"))
                 .build();
 
@@ -42,7 +41,6 @@ public class UsuarioMapperTest {
 
         assertAll( () -> {
             assertEquals(usuarioExpected.getUsername(), usuarioResult.getUsername());
-            assertEquals(usuarioExpected.getPassword(), usuarioResult.getPassword());
             assertEquals(usuarioExpected.getRoles(), rolesResult);
         });
     }
@@ -67,7 +65,6 @@ public class UsuarioMapperTest {
 
         assertAll( () -> {
             assertEquals(usuarioExpected.getUsername(), usuarioResult.getUsername());
-            assertEquals(usuarioExpected.getPassword(), usuarioResult.getPassword());
             assertEquals(rolesExpected, usuarioResult.getRoles());
         });
 
