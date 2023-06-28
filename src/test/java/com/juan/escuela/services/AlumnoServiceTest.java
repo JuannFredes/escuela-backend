@@ -73,7 +73,7 @@ public class AlumnoServiceTest {
             assertEquals(alumnos.get(0).getAnio(), alumnoDtos.get(0).getAnio());
             assertEquals(alumnos.get(0).getSexo(), alumnoDtos.get(0).getSexo());
             assertEquals(alumnos.get(0).getTelefono(), alumnoDtos.get(0).getTelefono());
-            assertEquals(Period.between(alumnos.get(0).getFechaNacimiento(), LocalDate.now()).getYears(), alumnoDtos.get(0).getAge());
+            assertEquals(Period.between(alumnos.get(0).getFechaNacimiento(), LocalDate.now()).getYears(), alumnoDtos.get(0).getEdad());
 
             assertEquals(alumnos.get(1).getNombre(), alumnoDtos.get(1).getNombre());
             assertEquals(alumnos.get(1).getApellido(), alumnoDtos.get(1).getApellido());
@@ -85,7 +85,7 @@ public class AlumnoServiceTest {
             assertEquals(alumnos.get(1).getAnio(), alumnoDtos.get(1).getAnio());
             assertEquals(alumnos.get(1).getSexo(), alumnoDtos.get(1).getSexo());
             assertEquals(alumnos.get(1).getTelefono(), alumnoDtos.get(1).getTelefono());
-            assertEquals(Period.between(alumnos.get(1).getFechaNacimiento(), LocalDate.now()).getYears(), alumnoDtos.get(1).getAge());
+            assertEquals(Period.between(alumnos.get(1).getFechaNacimiento(), LocalDate.now()).getYears(), alumnoDtos.get(1).getEdad());
 
             assertEquals(alumnos.get(2).getNombre(), alumnoDtos.get(2).getNombre());
             assertEquals(alumnos.get(2).getApellido(), alumnoDtos.get(2).getApellido());
@@ -97,7 +97,7 @@ public class AlumnoServiceTest {
             assertEquals(alumnos.get(2).getAnio(), alumnoDtos.get(2).getAnio());
             assertEquals(alumnos.get(2).getSexo(), alumnoDtos.get(2).getSexo());
             assertEquals(alumnos.get(2).getTelefono(), alumnoDtos.get(2).getTelefono());
-            assertEquals(Period.between(alumnos.get(2).getFechaNacimiento(), LocalDate.now()).getYears(), alumnoDtos.get(2).getAge());
+            assertEquals(Period.between(alumnos.get(2).getFechaNacimiento(), LocalDate.now()).getYears(), alumnoDtos.get(2).getEdad());
 
             assertEquals(alumnos.get(3).getNombre(), alumnoDtos.get(3).getNombre());
             assertEquals(alumnos.get(3).getApellido(), alumnoDtos.get(3).getApellido());
@@ -109,7 +109,7 @@ public class AlumnoServiceTest {
             assertEquals(alumnos.get(3).getAnio(), alumnoDtos.get(3).getAnio());
             assertEquals(alumnos.get(3).getSexo(), alumnoDtos.get(3).getSexo());
             assertEquals(alumnos.get(3).getTelefono(), alumnoDtos.get(3).getTelefono());
-            assertEquals(Period.between(alumnos.get(3).getFechaNacimiento(), LocalDate.now()).getYears(), alumnoDtos.get(3).getAge());
+            assertEquals(Period.between(alumnos.get(3).getFechaNacimiento(), LocalDate.now()).getYears(), alumnoDtos.get(3).getEdad());
         });
 
         DefaultClassInfoStrategy.getInstance()
@@ -136,7 +136,7 @@ public class AlumnoServiceTest {
                 assertEquals(alumno.getDni(), alumnoMateriasDto.getDni());
                 assertEquals(alumno.getNumeroEmergencia(), alumnoMateriasDto.getNumeroEmergencia());
                 assertEquals(alumno.getEmail(), alumnoMateriasDto.getEmail());
-                assertEquals(Period.between(alumno.getFechaNacimiento(), LocalDate.now()).getYears(), alumnoMateriasDto.getAge());
+                assertEquals(Period.between(alumno.getFechaNacimiento(), LocalDate.now()).getYears(), alumnoMateriasDto.getEdad());
 
                 assertEquals(alumno.getMateriaAlumnos().get(0).getMateria().getId(), alumnoMateriasDto.getMaterias().get(0).getId());
                 assertEquals(alumno.getMateriaAlumnos().get(0).getMateria().getNombre(), alumnoMateriasDto.getMaterias().get(0).getNombre());

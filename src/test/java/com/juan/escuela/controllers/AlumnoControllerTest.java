@@ -66,7 +66,7 @@ class AlumnoControllerTest {
                 .andExpect(jsonPath("$[0].id",is(alumnoDtos.get(0).getId())))
                 .andExpect(jsonPath("$[0].nombre",is(alumnoDtos.get(0).getNombre())))
                 .andExpect(jsonPath("$[1].id",is(alumnoDtos.get(1).getId())))
-                .andExpect(jsonPath("$[1].age",is(alumnoDtos.get(1).getAge())));
+                .andExpect(jsonPath("$[1].age",is(alumnoDtos.get(1).getEdad())));
         verify(alumnoService).getAllAlumno();
 
     }

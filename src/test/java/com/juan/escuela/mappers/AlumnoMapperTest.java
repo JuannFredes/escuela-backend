@@ -52,7 +52,7 @@ public class AlumnoMapperTest {
             assertEquals(alumno.getAnio(), alumnoDto.getAnio());
             assertEquals(alumno.getSexo(), alumnoDto.getSexo());
             assertEquals(alumno.getTelefono(), alumnoDto.getTelefono());
-            assertEquals(Period.between(alumno.getFechaNacimiento(), LocalDate.now()).getYears(), alumnoDto.getAge());
+            assertEquals(Period.between(alumno.getFechaNacimiento(), LocalDate.now()).getYears(), alumnoDto.getEdad());
         });
 
         DefaultClassInfoStrategy.getInstance()
@@ -180,7 +180,7 @@ public class AlumnoMapperTest {
             assertEquals(alumno.getDni(), alumnoMateriasDto.getDni());
             assertEquals(alumno.getNumeroEmergencia(), alumnoMateriasDto.getNumeroEmergencia());
             assertEquals(alumno.getEmail(), alumnoMateriasDto.getEmail());
-            assertEquals(Period.between(alumno.getFechaNacimiento(), LocalDate.now()).getYears(), alumnoMateriasDto.getAge());
+            assertEquals(Period.between(alumno.getFechaNacimiento(), LocalDate.now()).getYears(), alumnoMateriasDto.getEdad());
 
             assertEquals(alumno.getMateriaAlumnos().get(0).getMateria().getId(), alumnoMateriasDto.getMaterias().get(0).getId());
             assertEquals(alumno.getMateriaAlumnos().get(0).getMateria().getNombre(), alumnoMateriasDto.getMaterias().get(0).getNombre());

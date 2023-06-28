@@ -37,7 +37,7 @@ public abstract class PersonaDTO {
     @PodamStrategyValue(EmailPodamStrategy.class)
     private String email;
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
-    private int age;
+    private int edad;
     @JsonProperty("fecha_nacimiento")
     private LocalDate fechaNacimiento;
     private char sexo;

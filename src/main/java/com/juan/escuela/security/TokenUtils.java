@@ -3,24 +3,31 @@ package com.juan.escuela.security;
 import com.juan.escuela.repositories.UsuarioRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Component
 public class TokenUtils {
 
-    private final static String ACCESS_TOKEN_SECRET = "aiubiubs$%%N45inbubiubsbiu7/(/$&%TYUYYU(YVY/V/uybub75465dvuyhb";
-    private final static long ACCESS_TOKEN_VALIDITY_SECONDS = 2_000_000L;
+    @Value("${application.security.jwt.secret-key}")
+    private String ACCESS_TOKEN_SECRET;
+
+    @Value("${application.security.jwt.expiration}")
+    private String ACCESS_TOKEN_VALIDITY_SECONDS;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public static String createToken(String user, Collection<? extends GrantedAuthority> roles) {
-        long expirationTime = ACCESS_TOKEN_VALIDITY_SECONDS * 1000;
+    public String createToken(String user, Collection<? extends GrantedAuthority> roles) {
+        long expirationTime = Long.parseLong(ACCESS_TOKEN_VALIDITY_SECONDS) * 1000;
         Date expirationDate = new Date(System.currentTimeMillis() + expirationTime);
 
         List<String> rolesList = roles.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
@@ -37,7 +44,7 @@ public class TokenUtils {
                 .compact();
     }
 
-    public static UsernamePasswordAuthenticationToken getAuthentication(String token){
+    public UsernamePasswordAuthenticationToken getAuthentication(String token){
         try {
             Claims claims = Jwts.parserBuilder()
                     .setSigningKey(ACCESS_TOKEN_SECRET.getBytes())

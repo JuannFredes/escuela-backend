@@ -25,6 +25,7 @@ public class AuthenticationService {
     private final UsuarioMapper usuarioMapper;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
+    private final TokenUtils tokenUtils;
 
     public UsuarioDto register(RegistroDto registroDto){
         if(usuarioRepository.existsUsuarioByUsername(registroDto.getUsername())) {
@@ -55,7 +56,7 @@ public class AuthenticationService {
 
     private UsuarioDto getUsuarioDtoToken(Usuario usuario) {
         UserDetails userDetails = new UserDetailsImpl(usuario);
-        String token = TokenUtils.createToken(userDetails.getUsername(), userDetails.getAuthorities());
+        String token = tokenUtils.createToken(userDetails.getUsername(), userDetails.getAuthorities());
 
         UsuarioDto usuarioDto = usuarioMapper.toUsuarioDto(usuario);
         usuarioDto.setToken(token);

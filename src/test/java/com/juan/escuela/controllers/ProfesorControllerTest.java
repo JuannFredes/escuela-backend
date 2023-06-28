@@ -66,7 +66,7 @@ class ProfesorControllerTest {
                 .andExpect(jsonPath("$[0].id",is(profesorDtos.get(0).getId())))
                 .andExpect(jsonPath("$[0].nombre",is(profesorDtos.get(0).getNombre())))
                 .andExpect(jsonPath("$[1].id",is(profesorDtos.get(1).getId())))
-                .andExpect(jsonPath("$[1].age",is(profesorDtos.get(1).getAge())));
+                .andExpect(jsonPath("$[1].age",is(profesorDtos.get(1).getEdad())));
         verify(profesorService).getAllProfesor();
 
     }
