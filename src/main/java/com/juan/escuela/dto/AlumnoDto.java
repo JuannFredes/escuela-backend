@@ -16,6 +16,7 @@ public class AlumnoDto extends PersonaDTO{
     private String numeroEmergencia;
     @Min(value = 1, message = "no puede ser menor a primer año")
     @Max(value = 5, message = "no hay mas que quinto año")
+    @JsonProperty("año")
     private Short anio;
     @Min(value = 1, message = "no hay una división menos que la primera")
     @Max(value = 3, message = "solo hay hasta la tercera división")

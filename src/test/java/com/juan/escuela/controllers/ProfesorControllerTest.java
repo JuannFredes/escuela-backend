@@ -3,8 +3,6 @@ package com.juan.escuela.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.juan.escuela.dto.ProfesorDto;
-import com.juan.escuela.models.Materia;
-import com.juan.escuela.models.Profesor;
 import com.juan.escuela.services.ProfesorService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,7 +59,7 @@ class ProfesorControllerTest {
 
         List<ProfesorDto> profesorDtos = podamFactory.manufacturePojo(ArrayList.class, ProfesorDto.class);
 
-        when(profesorService.getAllProfesores()).thenReturn(profesorDtos);
+        when(profesorService.getAllProfesor()).thenReturn(profesorDtos);
 
         mockMvc.perform(get("/v1/profesores"))
                 .andExpect(status().is(200))
@@ -69,7 +67,7 @@ class ProfesorControllerTest {
                 .andExpect(jsonPath("$[0].nombre",is(profesorDtos.get(0).getNombre())))
                 .andExpect(jsonPath("$[1].id",is(profesorDtos.get(1).getId())))
                 .andExpect(jsonPath("$[1].age",is(profesorDtos.get(1).getAge())));
-        verify(profesorService).getAllProfesores();
+        verify(profesorService).getAllProfesor();
 
     }
 
@@ -78,13 +76,13 @@ class ProfesorControllerTest {
 
         ProfesorDto profesorDto = podamFactory.manufacturePojo(ProfesorDto.class);
 
-        when(profesorService.getProfesorById(anyInt())).thenReturn(profesorDto);
+        when(profesorService.getProfesor(anyInt())).thenReturn(profesorDto);
 
         mockMvc.perform(get("/v1/profesores/{id}", anyInt()))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id", is(profesorDto.getId())))
                 .andExpect(jsonPath("$.apellido", is(profesorDto.getApellido())));
-        verify(profesorService).getProfesorById(anyInt());
+        verify(profesorService).getProfesor(anyInt());
 
     }
 
@@ -127,7 +125,7 @@ class ProfesorControllerTest {
 
         mockMvc.perform(delete("/v1/profesores/{id}", anyInt()))
                 .andExpect(status().is(204));
-        verify(profesorService).deleteProfesorByid(anyInt());
+        verify(profesorService).deleteProfesor(anyInt());
 
     }
 }

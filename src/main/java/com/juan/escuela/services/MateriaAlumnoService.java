@@ -20,7 +20,7 @@ public class MateriaAlumnoService {
 
     private final MateriaMapper materiaMapper;
 
-    public MateriaNotaDto createPutMateriaNota(int idAlumno, int idMateria, MateriaNotaDto materiaNotaDto) {
+    public MateriaNotaDto updateMateriaNota(int idAlumno, int idMateria, MateriaNotaDto materiaNotaDto) {
         if (materiaAlumnoRepository.alumnoMateriaExistsById(idMateria, idAlumno) == 0) {
             throw new AppException("no se ha encontrado el alumno con el id: " + idAlumno + " o la materia con el id: " + idMateria, HttpStatus.BAD_REQUEST);
         }

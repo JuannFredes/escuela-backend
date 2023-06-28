@@ -26,7 +26,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
-    public UsuarioDto resgitrar(RegistroDto registroDto){
+    public UsuarioDto register(RegistroDto registroDto){
         if(usuarioRepository.existsUsuarioByUsername(registroDto.getUsername())) {
             throw new AppException("el usuario con el username \"" + registroDto.getUsername() + "\" ya existe",
                     HttpStatus.CONFLICT);

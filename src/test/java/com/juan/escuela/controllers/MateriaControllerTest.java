@@ -60,7 +60,7 @@ class MateriaControllerTest {
 
         List<MateriaDto> materiaDtos = podamFactory.manufacturePojo(ArrayList.class, MateriaDto.class);
 
-        when(materiaService.getAllMaterias()).thenReturn(materiaDtos);
+        when(materiaService.getAllMateria()).thenReturn(materiaDtos);
 
         mockMvc.perform(get("/v1/materias"))
                 .andExpect(status().is(200))
@@ -68,7 +68,7 @@ class MateriaControllerTest {
                 .andExpect(jsonPath("$[0].nombre",is(materiaDtos.get(0).getNombre())))
                 .andExpect(jsonPath("$[1].id",is(materiaDtos.get(1).getId())))
                 .andExpect(jsonPath("$[1].nombre",is(materiaDtos.get(1).getNombre())));
-        verify(materiaService).getAllMaterias();
+        verify(materiaService).getAllMateria();
 
     }
 
@@ -77,7 +77,7 @@ class MateriaControllerTest {
 
         MateriaDetailsDto materiaDetailsDto = podamFactory.manufacturePojo(MateriaDetailsDto.class);
 
-        when(materiaService.getMateriaById(anyInt())).thenReturn(materiaDetailsDto);
+        when(materiaService.getMateria(anyInt())).thenReturn(materiaDetailsDto);
 
         mockMvc.perform(get("/v1/materias/{id}", anyInt()))
                 .andExpect(status().is(200))
@@ -86,7 +86,7 @@ class MateriaControllerTest {
                 .andExpect(jsonPath("$.cantidad_alumnos", is(materiaDetailsDto.getCantidadAlumnos())))
                 .andExpect(jsonPath("$.profesors[0].id", is(materiaDetailsDto.getProfesors().get(0).getId())))
                 .andExpect(jsonPath("$.alumnos[2].dni", is(materiaDetailsDto.getAlumnos().get(2).getDni())));
-        verify(materiaService).getMateriaById(anyInt());
+        verify(materiaService).getMateria(anyInt());
 
     }
 
@@ -98,7 +98,7 @@ class MateriaControllerTest {
                 .nombre("Materia")
                 .build();
 
-        when(materiaService.putMateria(materiaDto.getId(), materiaDto)).thenReturn(materiaDto);
+        when(materiaService.updateMateria(materiaDto.getId(), materiaDto)).thenReturn(materiaDto);
 
         mockMvc.perform(put("/v1/materias/{id}", materiaDto.getId())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -106,7 +106,7 @@ class MateriaControllerTest {
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id",is(materiaDto.getId())))
                 .andExpect(jsonPath("$.nombre",is(materiaDto.getNombre())));
-        verify(materiaService).putMateria(materiaDto.getId(), materiaDto);
+        verify(materiaService).updateMateria(materiaDto.getId(), materiaDto);
 
     }
 
@@ -136,7 +136,7 @@ class MateriaControllerTest {
 
         mockMvc.perform(delete("/v1/materias/{id}", anyInt()))
                 .andExpect(status().is(204));
-        verify(materiaService).deleteMateriaById(anyInt());
+        verify(materiaService).deleteMateria(anyInt());
 
     }
 }

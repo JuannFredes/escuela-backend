@@ -25,7 +25,7 @@ public class UserEntryPoint implements AuthenticationEntryPoint {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         ErrorDto errorDto = new ErrorDto();
-        errorDto.add("mensaje", "el la contraseña ingresada es incorrecta");
+        errorDto.add("mensaje", "la contraseña ingresada es incorrecta");
         OBJECT_MAPPER.writeValue(response.getOutputStream(),errorDto);
     }
 }

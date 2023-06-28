@@ -18,18 +18,18 @@ public class MateriaController {
     private final MateriaService materiaService;
 
     @GetMapping
-    public ResponseEntity<List<MateriaDto>> getAll(){
-        return ResponseEntity.ok(materiaService.getAllMaterias());
+    public ResponseEntity<List<MateriaDto>> getAllMateria(){
+        return ResponseEntity.ok(materiaService.getAllMateria());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<MateriaDetailsDto> getMateria(@PathVariable int id) {
-        return ResponseEntity.ok(materiaService.getMateriaById(id));
+        return ResponseEntity.ok(materiaService.getMateria(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<MateriaDto> updateMateria(@PathVariable int id, @RequestBody MateriaDto materiaDto){
-        return ResponseEntity.ok(materiaService.putMateria(id, materiaDto));
+        return ResponseEntity.ok(materiaService.updateMateria(id, materiaDto));
     }
 
     @PostMapping
@@ -39,7 +39,7 @@ public class MateriaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMateria(@PathVariable int id){
-        materiaService.deleteMateriaById(id);
+        materiaService.deleteMateria(id);
         return ResponseEntity.noContent().build();
     }
 

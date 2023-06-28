@@ -1,8 +1,5 @@
 package com.juan.escuela.security;
 
-import com.juan.escuela.models.ERol;
-import com.juan.escuela.models.Rol;
-import com.juan.escuela.models.Usuario;
 import com.juan.escuela.repositories.UsuarioRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -10,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 

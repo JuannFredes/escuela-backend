@@ -20,12 +20,12 @@ public class ProfesorService {
 
     private final ProfesorMapper profesorMapper;
 
-    public List<ProfesorDto> getAllProfesores(){
+    public List<ProfesorDto> getAllProfesor(){
         List<Profesor> profesorDtos = (List<Profesor>) profesorRepository.findAll();
         return profesorMapper.toListProfesorDto(profesorDtos);
     }
 
-    public ProfesorDto getProfesorById(int id) {
+    public ProfesorDto getProfesor(int id) {
         Profesor profesor = profesorRepository.findById(id)
                 .orElseThrow(() -> new AppException("el profesor con el id: " + id + " no existe", HttpStatus.BAD_REQUEST));
         return profesorMapper.toProfesorDto(profesor);
@@ -60,7 +60,7 @@ public class ProfesorService {
         return profesorMapper.toProfesorDto(profesorPut);
     }
 
-    public void deleteProfesorByid(int id){
+    public void deleteProfesor(int id){
         if (!profesorRepository.existsById(id)) {
             throw new AppException("no se pudo eliminar porque no se encontro el alumno con el id: " + id, HttpStatus.NOT_FOUND);
         }

@@ -16,7 +16,7 @@ public class MateriaAlumnoController {
     private final MateriaAlumnoService materiaAlumnoService;
 
     @PostMapping("/alumnos/{idAlumno}/materias/{idMateria}")
-    public ResponseEntity<MateriaNotaDto> updateMateriaNota(@PathVariable("idAlumno") int idAlumno, @PathVariable("idMateria") int idMateria, @Valid @RequestBody MateriaNotaDto materiaNotaDto){
-        return ResponseEntity.ok(materiaAlumnoService.createPutMateriaNota(idAlumno, idMateria, materiaNotaDto));
+    public ResponseEntity<MateriaNotaDto> updateMateriaAlumno(@PathVariable("idAlumno") int idAlumno, @PathVariable("idMateria") int idMateria, @Valid @RequestBody MateriaNotaDto materiaNotaDto){
+        return ResponseEntity.ok(materiaAlumnoService.updateMateriaNota(idAlumno, idMateria, materiaNotaDto));
     }
 }

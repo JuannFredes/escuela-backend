@@ -66,7 +66,7 @@ class MateriaServiceTest {
         List<Materia> materias = podamFactory.manufacturePojo(ArrayList.class, Materia.class);
         when(materiaRepository.findAll()).thenReturn(materias);
 
-        List<MateriaDto> materiaDtos = materiaService.getAllMaterias();
+        List<MateriaDto> materiaDtos = materiaService.getAllMateria();
         verify(materiaRepository).findAll();
 
         assertAll(() -> {
@@ -101,7 +101,7 @@ class MateriaServiceTest {
         List<AlumnoDto> alumnoDtos = alumnoMapper.toListAlumnoDto(materiaMapper.toListAlumno(materia.getMateriaAlumnos()));
 
 
-        MateriaDetailsDto materiaDetailsDto = materiaService.getMateriaById(anyInt());
+        MateriaDetailsDto materiaDetailsDto = materiaService.getMateria(anyInt());
         verify(materiaRepository).findById(anyInt());
 
         assertAll(() -> {
@@ -130,7 +130,7 @@ class MateriaServiceTest {
         when(materiaRepository.findById(materiaDto.getId())).thenReturn(Optional.of(materia));
         when(materiaRepository.save(materia)).thenReturn(materia);
 
-        MateriaDto materiaResponse = materiaService.putMateria(materia.getId(), materiaDto);
+        MateriaDto materiaResponse = materiaService.updateMateria(materia.getId(), materiaDto);
         verify(materiaRepository).save(materia);
         verify(materiaRepository).findById(materiaDto.getId());
 
@@ -159,7 +159,7 @@ class MateriaServiceTest {
     @Test
     void deleteMateriaById() {
         when(materiaRepository.existsById(anyInt())).thenReturn(true);
-        materiaService.deleteMateriaById(anyInt());
+        materiaService.deleteMateria(anyInt());
 
         verify(materiaRepository).existsById(anyInt());
         verify(materiaRepository).deleteById(anyInt());

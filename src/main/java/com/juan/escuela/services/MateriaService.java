@@ -20,12 +20,12 @@ public class MateriaService {
 
     private final MateriaMapper materiaMapper;
 
-    public List<MateriaDto> getAllMaterias() {
+    public List<MateriaDto> getAllMateria() {
         List<Materia> materias = (List<Materia>) materiaRepository.findAll();
         return materiaMapper.toListMateriaDto(materias);
     }
 
-    public MateriaDetailsDto getMateriaById(int id) {
+    public MateriaDetailsDto getMateria(int id) {
         Materia materia = materiaRepository.findById(id)
                 .orElseThrow(() -> new AppException("no se encontro el alumno con el id: " + id, HttpStatus.NOT_FOUND));
         return materiaMapper.toMateriaDetailsDto(materia);
@@ -36,7 +36,7 @@ public class MateriaService {
         return materiaMapper.toMateriaDto(materiaSave);
     }
 
-    public void deleteMateriaById(int id){
+    public void deleteMateria(int id){
         if(!materiaRepository.existsById(id)) {
             throw new AppException("no se pudo eliminar porque no se encontro el alumno con el id: " + id, HttpStatus.NOT_FOUND);
         }
@@ -44,7 +44,7 @@ public class MateriaService {
         materiaRepository.deleteById(id);
     }
 
-    public MateriaDto putMateria(int id, MateriaDto materiaDto){
+    public MateriaDto updateMateria(int id, MateriaDto materiaDto){
         Materia newMateria = materiaMapper.toMateria(materiaDto);
         Materia materiaPut = materiaRepository.findById(id)
                 .map(materia -> {

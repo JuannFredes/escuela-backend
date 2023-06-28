@@ -16,8 +16,6 @@ public class ProfesorDto extends PersonaDTO{
     @JsonProperty("materia_encargado")
     private String materiaEncargado;
 
-    /*public ProfesorDto() {
-    }*/
 
     public ProfesorDto(int id) {
         super(id);

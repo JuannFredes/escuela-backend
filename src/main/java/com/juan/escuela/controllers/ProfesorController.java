@@ -19,12 +19,12 @@ public class ProfesorController {
 
     @GetMapping
     public ResponseEntity<List<ProfesorDto>> getAllProfesor(){
-        return ResponseEntity.ok(profesorService.getAllProfesores());
+        return ResponseEntity.ok(profesorService.getAllProfesor());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProfesorDto> getProfesor(@PathVariable int id){
-        return ResponseEntity.ok(profesorService.getProfesorById(id));
+        return ResponseEntity.ok(profesorService.getProfesor(id));
     }
 
     @PutMapping("/{id}")
@@ -39,7 +39,7 @@ public class ProfesorController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProfesor(@PathVariable int id) {
-        profesorService.deleteProfesorByid(id);
+        profesorService.deleteProfesor(id);
         return ResponseEntity.noContent().build();
     }
 }

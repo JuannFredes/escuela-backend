@@ -6,7 +6,6 @@ import com.juan.escuela.mappers.ProfesorMapperImpl;
 import com.juan.escuela.models.Materia;
 import com.juan.escuela.models.Profesor;
 import com.juan.escuela.repositories.ProfesorRepository;
-import org.hibernate.validator.internal.constraintvalidators.bv.money.DecimalMaxValidatorForMonetaryAmount;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,7 +58,7 @@ public class ProfesorServiceTest {
         List<Profesor> profesors = podamFactory.manufacturePojo(ArrayList.class, Profesor.class);
         when(profesorRepository.findAll()).thenReturn(profesors);
 
-        List<ProfesorDto> profesorDtos = profesorService.getAllProfesores();
+        List<ProfesorDto> profesorDtos = profesorService.getAllProfesor();
         verify(profesorRepository).findAll();
 
         assertAll(() -> {
@@ -114,7 +113,7 @@ public class ProfesorServiceTest {
         Profesor profesor = podamFactory.manufacturePojo(Profesor.class);
         when(profesorRepository.findById(anyInt())).thenReturn(Optional.of(profesor));
 
-        ProfesorDto profesorDto = profesorService.getProfesorById(anyInt());
+        ProfesorDto profesorDto = profesorService.getProfesor(anyInt());
         verify(profesorRepository).findById(anyInt());
 
         assertAll(() -> {
@@ -184,7 +183,7 @@ public class ProfesorServiceTest {
     void deleteProfesorByIdTest(){
 
         when(profesorRepository.existsById(anyInt())).thenReturn(true);
-        profesorService.deleteProfesorByid(anyInt());
+        profesorService.deleteProfesor(anyInt());
 
         verify(profesorRepository).existsById(anyInt());
         verify(profesorRepository).deleteById(anyInt());

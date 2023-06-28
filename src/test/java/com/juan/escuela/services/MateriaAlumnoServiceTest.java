@@ -8,17 +8,12 @@ import com.juan.escuela.models.AlumnoMateriaKeys;
 import com.juan.escuela.models.Materia;
 import com.juan.escuela.models.MateriaAlumno;
 import com.juan.escuela.repositories.MateriaAlumnoRepository;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,7 +46,7 @@ class MateriaAlumnoServiceTest {
 
         when(materiaAlumnoRepository.alumnoMateriaExistsById(materiaNotaDto.getId(), 1)).thenReturn((short)1);
         when(materiaAlumnoRepository.save(materiaAlumno)).thenReturn(materiaAlumno);
-        MateriaNotaDto materiaNotaDtoSave = materiaAlumnoService.createPutMateriaNota(1, materiaNotaDto.getId(), materiaNotaDto);
+        MateriaNotaDto materiaNotaDtoSave = materiaAlumnoService.updateMateriaNota(1, materiaNotaDto.getId(), materiaNotaDto);
 
         verify(materiaAlumnoRepository).save(materiaAlumno);
         verify(materiaAlumnoRepository).alumnoMateriaExistsById(materiaNotaDto.getId(), 1);

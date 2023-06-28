@@ -59,7 +59,7 @@ public class AlumnoServiceTest {
         List<Alumno> alumnos = podamFactory.manufacturePojo(ArrayList.class, Alumno.class);
         when(alumnoRepository.findAll()).thenReturn(alumnos);
 
-        List<AlumnoDto> alumnoDtos = alumnoService.getAllAlumnos();
+        List<AlumnoDto> alumnoDtos = alumnoService.getAllAlumno();
 
         verify(alumnoRepository).findAll();
         assertAll(() -> {
@@ -126,7 +126,7 @@ public class AlumnoServiceTest {
         Alumno alumno = podamFactory.manufacturePojo(Alumno.class);
         when(alumnoRepository.findById(1)).thenReturn(Optional.of(alumno));
 
-        AlumnoMateriasDto alumnoMateriasDto = alumnoService.getAlumnoById(1);
+        AlumnoMateriasDto alumnoMateriasDto = alumnoService.getAlumno(1);
         verify(alumnoRepository).findById(1);
 
         assertAll(() -> {
@@ -161,7 +161,7 @@ public class AlumnoServiceTest {
     @Test
     void deleteAlumnoByIdTest(){
         when(alumnoRepository.existsById(anyInt())).thenReturn(true);
-        alumnoService.deleteAlumnoById(anyInt());
+        alumnoService.deleteAlumno(anyInt());
 
         verify(alumnoRepository).existsById(anyInt());
         verify(alumnoRepository).deleteById(anyInt());
@@ -202,7 +202,7 @@ public class AlumnoServiceTest {
         when(alumnoRepository.findById(alumnoDto.getId())).thenReturn(Optional.of(alumno));
         when(alumnoRepository.save(alumno)).thenReturn(alumno);
 
-        AlumnoDto alumnoResponse = alumnoService.putAlumno(alumnoDto.getId(), alumnoDto);
+        AlumnoDto alumnoResponse = alumnoService.updateAlumno(alumnoDto.getId(), alumnoDto);
         verify(alumnoRepository).save(alumno);
         verify(alumnoRepository).findById(alumnoDto.getId());
 

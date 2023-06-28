@@ -1,6 +1,5 @@
 package com.juan.escuela.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.juan.escuela.dto.MateriaNotaDto;
@@ -57,7 +56,7 @@ class MateriaAlumnoControllerTest {
 
         MateriaNotaDto materiaNotaDto = podamFactory.manufacturePojo(MateriaNotaDto.class);
 
-        when(materiaAlumnoService.createPutMateriaNota(1, materiaNotaDto.getId(), materiaNotaDto)).thenReturn(materiaNotaDto);
+        when(materiaAlumnoService.updateMateriaNota(1, materiaNotaDto.getId(), materiaNotaDto)).thenReturn(materiaNotaDto);
 
         mockMvc.perform(post("/v1/alumnos/{idAlumno}/materias/{idMateria}", 1, materiaNotaDto.getId())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -66,7 +65,7 @@ class MateriaAlumnoControllerTest {
                 .andExpect(jsonPath("$.id", is(materiaNotaDto.getId())))
                 .andExpect(jsonPath("$.nombre", is(materiaNotaDto.getNombre())))
                 .andExpect(jsonPath("$.nota", is((int)materiaNotaDto.getNota())));
-        verify(materiaAlumnoService).createPutMateriaNota(1, materiaNotaDto.getId(), materiaNotaDto);
+        verify(materiaAlumnoService).updateMateriaNota(1, materiaNotaDto.getId(), materiaNotaDto);
 
     }
 }

@@ -24,9 +24,9 @@ public class AuthenticationController {
     }
 
 
-    @PostMapping("/registrar")
-    public ResponseEntity<UsuarioDto> registrar(@RequestBody @Valid RegistroDto registroDto) {
-        UsuarioDto usuarioDto = authenticationService.resgitrar(registroDto);
+    @PostMapping("/register")
+    public ResponseEntity<UsuarioDto> register(@RequestBody @Valid RegistroDto registroDto) {
+        UsuarioDto usuarioDto = authenticationService.register(registroDto);
         return ResponseEntity.ok(usuarioDto);
     }
 }

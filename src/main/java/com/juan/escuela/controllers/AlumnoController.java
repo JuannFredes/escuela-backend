@@ -19,18 +19,18 @@ public class AlumnoController {
     private final AlumnoService alumnoService;
 
     @GetMapping
-    public ResponseEntity<List<AlumnoDto>> getAll(){
-        return ResponseEntity.ok(alumnoService.getAllAlumnos());
+    public ResponseEntity<List<AlumnoDto>> getAllAlumno(){
+        return ResponseEntity.ok(alumnoService.getAllAlumno());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AlumnoMateriasDto> getAlumno(@PathVariable int id) {
-        return ResponseEntity.ok(alumnoService.getAlumnoById(id));
+        return ResponseEntity.ok(alumnoService.getAlumno(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AlumnoDto> updateAlumno(@PathVariable int id,@RequestBody AlumnoDto alumnoDto){
-        return ResponseEntity.ok(alumnoService.putAlumno(id, alumnoDto));
+    public ResponseEntity<AlumnoDto> updateAlumno(@PathVariable int id, @RequestBody AlumnoDto alumnoDto){
+        return ResponseEntity.ok(alumnoService.updateAlumno(id, alumnoDto));
     }
 
     @PostMapping
@@ -41,7 +41,7 @@ public class AlumnoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAlumno(@PathVariable int id) {
-        alumnoService.deleteAlumnoById(id);
+        alumnoService.deleteAlumno(id);
         return ResponseEntity.noContent().build();
     }
 
