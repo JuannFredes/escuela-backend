@@ -25,7 +25,20 @@ public class UserEntryPoint implements AuthenticationEntryPoint {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         ErrorDto errorDto = new ErrorDto();
-        errorDto.add("mensaje", "la contraseña ingresada es incorrecta");
+        String endpoint = request.getRequestURI();
+        boolean isLogin = endpoint.substring(11).equals("/auth/login");
+
+        if (isLogin) {
+            errorDto.add("mensaje", "la contraseña ingresada es incorrecta");
+        } else {
+            String token = request.getHeader("Authorization");
+            if (token == null || token.isEmpty()){
+                errorDto.add("mensaje", "no ha ingresado ningún token");
+            } else {
+                errorDto.add("mensaje", "el token ingresado es incorrecto");
+            }
+        }
+
         OBJECT_MAPPER.writeValue(response.getOutputStream(),errorDto);
     }
 }
