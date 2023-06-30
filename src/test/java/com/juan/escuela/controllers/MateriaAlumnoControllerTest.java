@@ -3,6 +3,7 @@ package com.juan.escuela.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.juan.escuela.dto.MateriaNotaDto;
+import com.juan.escuela.security.TokenUtils;
 import com.juan.escuela.services.MateriaAlumnoService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +35,9 @@ class MateriaAlumnoControllerTest {
     @MockBean
     private MateriaAlumnoService materiaAlumnoService;
 
+    @MockBean
+    private TokenUtils tokenUtils;
+
     private ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     private static PodamFactory podamFactory;
@@ -58,7 +62,7 @@ class MateriaAlumnoControllerTest {
 
         when(materiaAlumnoService.updateMateriaNota(1, materiaNotaDto.getId(), materiaNotaDto)).thenReturn(materiaNotaDto);
 
-        mockMvc.perform(post("/v1/alumnos/{idAlumno}/materias/{idMateria}", 1, materiaNotaDto.getId())
+        mockMvc.perform(post("/v2/alumnos/{idAlumno}/materias/{idMateria}", 1, materiaNotaDto.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsBytes(materiaNotaDto)))
                 .andExpect(status().is(200))

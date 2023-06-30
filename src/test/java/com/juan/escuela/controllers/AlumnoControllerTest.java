@@ -5,13 +5,19 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.juan.escuela.dto.AlumnoDto;
 import com.juan.escuela.dto.AlumnoMateriasDto;
 import com.juan.escuela.models.Alumno;
+import com.juan.escuela.repositories.UsuarioRepository;
+import com.juan.escuela.security.TokenUtils;
 import com.juan.escuela.services.AlumnoService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -39,6 +45,10 @@ class AlumnoControllerTest {
     @MockBean
     private AlumnoService alumnoService;
 
+    @MockBean
+    private TokenUtils tokenUtils;
+
+
     private ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     private static PodamFactory podamFactory;
     private static ClassInfoStrategy classInfoStrategy;
@@ -61,12 +71,12 @@ class AlumnoControllerTest {
 
         when(alumnoService.getAllAlumno()).thenReturn(alumnoDtos);
 
-        mockMvc.perform(get("/v1/alumnos"))
+        mockMvc.perform(get("/v2/alumnos"))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$[0].id",is(alumnoDtos.get(0).getId())))
                 .andExpect(jsonPath("$[0].nombre",is(alumnoDtos.get(0).getNombre())))
                 .andExpect(jsonPath("$[1].id",is(alumnoDtos.get(1).getId())))
-                .andExpect(jsonPath("$[1].age",is(alumnoDtos.get(1).getEdad())));
+                .andExpect(jsonPath("$[1].edad",is(alumnoDtos.get(1).getEdad())));
         verify(alumnoService).getAllAlumno();
 
     }
@@ -77,7 +87,7 @@ class AlumnoControllerTest {
 
         when(alumnoService.getAlumno(anyInt())).thenReturn(alumnoMateriasDto);
 
-        mockMvc.perform(get("/v1/alumnos/{id}", anyInt()))
+        mockMvc.perform(get("/v2/alumnos/{id}", anyInt()))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id", is(alumnoMateriasDto.getId())))
                 .andExpect(jsonPath("$.dni", is(alumnoMateriasDto.getDni())))
@@ -94,7 +104,7 @@ class AlumnoControllerTest {
 
         when(alumnoService.updateAlumno(alumnoDto.getId(), alumnoDto)).thenReturn(alumnoDto);
 
-        mockMvc.perform(put("/v1/alumnos/{id}", alumnoDto.getId())
+        mockMvc.perform(put("/v2/alumnos/{id}", alumnoDto.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsBytes(alumnoDto)))
                 .andExpect(status().is(200))
@@ -113,7 +123,7 @@ class AlumnoControllerTest {
 
         when(alumnoService.saveAlumno(alumnoDto)).thenReturn(alumnoDto);
 
-        mockMvc.perform(post("/v1/alumnos")
+        mockMvc.perform(post("/v2/alumnos")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsBytes(alumnoDto)))
                 .andExpect(status().is(201))
@@ -128,7 +138,7 @@ class AlumnoControllerTest {
     @Test
     void deleteAlumno() throws Exception {
 
-        mockMvc.perform(delete("/v1/alumnos/{id}", anyInt()))
+        mockMvc.perform(delete("/v2/alumnos/{id}", anyInt()))
                 .andExpect(status().is(204));
         verify(alumnoService).deleteAlumno(anyInt());
 

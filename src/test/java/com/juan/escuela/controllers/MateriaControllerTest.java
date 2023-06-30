@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.juan.escuela.dto.MateriaDetailsDto;
 import com.juan.escuela.dto.MateriaDto;
+import com.juan.escuela.security.TokenUtils;
 import com.juan.escuela.services.MateriaService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +39,9 @@ class MateriaControllerTest {
     @MockBean
     private MateriaService materiaService;
 
+    @MockBean
+    private TokenUtils tokenUtils;
+
     private ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     private static PodamFactory podamFactory;
@@ -62,7 +66,7 @@ class MateriaControllerTest {
 
         when(materiaService.getAllMateria()).thenReturn(materiaDtos);
 
-        mockMvc.perform(get("/v1/materias"))
+        mockMvc.perform(get("/v2/materias"))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$[0].id",is(materiaDtos.get(0).getId())))
                 .andExpect(jsonPath("$[0].nombre",is(materiaDtos.get(0).getNombre())))
@@ -79,7 +83,7 @@ class MateriaControllerTest {
 
         when(materiaService.getMateria(anyInt())).thenReturn(materiaDetailsDto);
 
-        mockMvc.perform(get("/v1/materias/{id}", anyInt()))
+        mockMvc.perform(get("/v2/materias/{id}", anyInt()))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id", is(materiaDetailsDto.getId())))
                 .andExpect(jsonPath("$.nombre", is(materiaDetailsDto.getNombre())))
@@ -100,7 +104,7 @@ class MateriaControllerTest {
 
         when(materiaService.updateMateria(materiaDto.getId(), materiaDto)).thenReturn(materiaDto);
 
-        mockMvc.perform(put("/v1/materias/{id}", materiaDto.getId())
+        mockMvc.perform(put("/v2/materias/{id}", materiaDto.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsBytes(materiaDto)))
                 .andExpect(status().is(200))
@@ -121,7 +125,7 @@ class MateriaControllerTest {
 
         when(materiaService.saveMateria(materia)).thenReturn(materiaDto);
 
-        mockMvc.perform(post("/v1/materias")
+        mockMvc.perform(post("/v2/materias")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsBytes(materia)))
                 .andExpect(status().is(200))
@@ -134,7 +138,7 @@ class MateriaControllerTest {
     @Test
     void deleteMateria() throws Exception {
 
-        mockMvc.perform(delete("/v1/materias/{id}", anyInt()))
+        mockMvc.perform(delete("/v2/materias/{id}", anyInt()))
                 .andExpect(status().is(204));
         verify(materiaService).deleteMateria(anyInt());
 

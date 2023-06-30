@@ -3,6 +3,7 @@ package com.juan.escuela.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.juan.escuela.dto.ProfesorDto;
+import com.juan.escuela.security.TokenUtils;
 import com.juan.escuela.services.ProfesorService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,6 +38,9 @@ class ProfesorControllerTest {
     @MockBean
     private ProfesorService profesorService;
 
+    @MockBean
+    private TokenUtils tokenUtils;
+
     private ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     private static PodamFactory podamFactory;
@@ -61,12 +65,12 @@ class ProfesorControllerTest {
 
         when(profesorService.getAllProfesor()).thenReturn(profesorDtos);
 
-        mockMvc.perform(get("/v1/profesores"))
+        mockMvc.perform(get("/v2/profesores"))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$[0].id",is(profesorDtos.get(0).getId())))
                 .andExpect(jsonPath("$[0].nombre",is(profesorDtos.get(0).getNombre())))
                 .andExpect(jsonPath("$[1].id",is(profesorDtos.get(1).getId())))
-                .andExpect(jsonPath("$[1].age",is(profesorDtos.get(1).getEdad())));
+                .andExpect(jsonPath("$[1].edad",is(profesorDtos.get(1).getEdad())));
         verify(profesorService).getAllProfesor();
 
     }
@@ -78,7 +82,7 @@ class ProfesorControllerTest {
 
         when(profesorService.getProfesor(anyInt())).thenReturn(profesorDto);
 
-        mockMvc.perform(get("/v1/profesores/{id}", anyInt()))
+        mockMvc.perform(get("/v2/profesores/{id}", anyInt()))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id", is(profesorDto.getId())))
                 .andExpect(jsonPath("$.apellido", is(profesorDto.getApellido())));
@@ -93,7 +97,7 @@ class ProfesorControllerTest {
 
         when(profesorService.updateProfesor(profesorDto.getId(), profesorDto)).thenReturn(profesorDto);
 
-        mockMvc.perform(put("/v1/profesores/{id}", profesorDto.getId())
+        mockMvc.perform(put("/v2/profesores/{id}", profesorDto.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsBytes(profesorDto)))
                 .andExpect(status().is(200))
@@ -110,7 +114,7 @@ class ProfesorControllerTest {
 
         when(profesorService.saveProfesor(profesorDto)).thenReturn(profesorDto);
 
-        mockMvc.perform(post("/v1/profesores")
+        mockMvc.perform(post("/v2/profesores")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsBytes(profesorDto)))
                 .andExpect(status().is(201))
@@ -123,7 +127,7 @@ class ProfesorControllerTest {
     @Test
     void deleteProfesor() throws Exception {
 
-        mockMvc.perform(delete("/v1/profesores/{id}", anyInt()))
+        mockMvc.perform(delete("/v2/profesores/{id}", anyInt()))
                 .andExpect(status().is(204));
         verify(profesorService).deleteProfesor(anyInt());
 
