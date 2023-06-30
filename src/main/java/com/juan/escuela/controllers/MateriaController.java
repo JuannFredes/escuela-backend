@@ -3,6 +3,7 @@ package com.juan.escuela.controllers;
 import com.juan.escuela.dto.MateriaDetailsDto;
 import com.juan.escuela.dto.MateriaDto;
 import com.juan.escuela.services.MateriaService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,8 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/materias")
+@RequestMapping("/v2/materias")
+@Tag(name = "Materias")
 public class MateriaController {
 
     private final MateriaService materiaService;

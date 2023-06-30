@@ -2,6 +2,7 @@ package com.juan.escuela.controllers;
 
 import com.juan.escuela.dto.UsuarioDto;
 import com.juan.escuela.services.UsuariosService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,8 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/usuarios")
+@RequestMapping("/v2/usuarios")
+@Tag(name = "Usuarios")
 public class UsuarioController {
 
     private final UsuariosService usuariosService;

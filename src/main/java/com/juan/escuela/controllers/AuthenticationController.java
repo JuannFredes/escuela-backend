@@ -4,6 +4,8 @@ import com.juan.escuela.dto.AuthCredentialsDto;
 import com.juan.escuela.dto.RegistroDto;
 import com.juan.escuela.dto.UsuarioDto;
 import com.juan.escuela.services.AuthenticationService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +14,8 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/auth")
+@RequestMapping("/v2/auth")
+@Tag(name = "Autenticación")
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;

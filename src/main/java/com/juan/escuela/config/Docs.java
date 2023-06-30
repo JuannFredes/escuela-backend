@@ -9,11 +9,25 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Comparator;
+import java.util.List;
+
 //@Configuration
 @OpenAPIDefinition(
+        tags = {
+                @Tag(name = "Autenticación"),
+                @Tag(name = "Usuarios"),
+                @Tag(name = "Profesores"),
+                @Tag(name = "Alumnos"),
+                @Tag(name = "Materias"),
+                @Tag(name = "Materia-Alumno")
+
+        },
         info = @Info(
                 contact = @Contact(
                         name = "Juan Fredes",
@@ -24,7 +38,7 @@ import org.springframework.context.annotation.Configuration;
                 description = "Api diseñada para una escuela secundaria, " +
                         "donde con los diferentes endpoints se podrá consultar y " +
                         "guardar datos de alumnos y profesores y su relación con las diferentes materias",
-                version = "1.1.0"
+                version = "1.1.1"
         ),
         servers = {
                 @Server(
@@ -60,4 +74,7 @@ public class Docs {
                         .description("Api Rest para una escuela secundaria")
                         .version("V1"));
     }*/
+
+
 }
+

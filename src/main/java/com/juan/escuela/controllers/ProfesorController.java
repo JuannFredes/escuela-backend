@@ -2,6 +2,7 @@ package com.juan.escuela.controllers;
 
 import com.juan.escuela.dto.ProfesorDto;
 import com.juan.escuela.services.ProfesorService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,8 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/profesores")
+@RequestMapping("/v2/profesores")
+@Tag(name = "Profesores")
 public class ProfesorController {
 
     private final ProfesorService profesorService;
