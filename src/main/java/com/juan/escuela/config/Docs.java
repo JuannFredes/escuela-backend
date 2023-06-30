@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.models.OpenAPI;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,10 +20,22 @@ import org.springframework.context.annotation.Configuration;
                         email = "juanjgfredes@gmail.com",
                         url = "https://www.linkedin.com/in/juanjgfredes/"
                 ),
-                description = "Api para una escuela secundaria",
-                title = "Api para escuela",
-                version = "1.1.2"
+                title = "Api para una escuela",
+                description = "Api diseñada para una escuela secundaria, " +
+                        "donde con los diferentes endpoints se podrá consultar y " +
+                        "guardar datos de alumnos y profesores y su relación con las diferentes materias",
+                version = "1.1.0"
         ),
+        servers = {
+                @Server(
+                  description = "Entorno local",
+                  url = "http://localhost:8080/escuela/"
+                ),
+                @Server(
+                        description = "Entorno de Producción",
+                        url = "https://escuela-app.onrender.com/escuela/"
+                )
+        },
         security = {
                 @SecurityRequirement(
                         name = "bearerAuth"
@@ -31,7 +44,7 @@ import org.springframework.context.annotation.Configuration;
 )
 @SecurityScheme(
         name = "bearerAuth",
-        description = "JWT auth description",
+        description = "Autenticación con JWT",
         scheme = "bearer",
         type = SecuritySchemeType.HTTP,
         bearerFormat = "JWT",
