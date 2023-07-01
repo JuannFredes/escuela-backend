@@ -37,7 +37,7 @@ public class WebSecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests( auth -> {
                     auth.antMatchers(
-                                    "/v1/auth/login",
+                                    "/v2/auth/login",
                                     "/v2/api-docs",
                                     "/v3/api-docs",
                                     "/v3/api-docs/**",
