@@ -160,6 +160,16 @@
 	</dependencies>
 
 	<build>
+
+			<resources>
+				<resource>
+					<directory>src/main/resources</directory>
+					<includes>
+						<include>**/*</include>
+					</includes>
+				</resource>
+			</resources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -205,6 +215,22 @@
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>4.19.0</version>
+				<configuration>
+					<driver>com.mysql.cj.jdbc.Driver</driver>
+					<!--suppress UnresolvedMavenProperty -->
+					<url>jdbc:mysql://${env.PROD_DB_HOST}:${env.PROD_DB_PORT}/${env.PROD_DB_NAME}</url>
+					<!--suppress UnresolvedMavenProperty -->
+					<username>${env.PROD_DB_USERNAME}</username>
+					<!--suppress UnresolvedMavenProperty -->
+					<password>${env.PROD_DB_PASSWORD}</password>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>update</goal>
+						</goals>
+					</execution>
+				</executions>
 				<!--<configuration>
 					<profiles>
 						<profile>dev</profile>
