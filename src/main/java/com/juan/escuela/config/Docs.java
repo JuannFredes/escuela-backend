@@ -42,12 +42,12 @@ import java.util.List;
         ),
         servers = {
                 @Server(
-                  description = "Entorno local",
-                  url = "http://localhost:8080/escuela/"
-                ),
-                @Server(
                         description = "Entorno de Producción",
                         url = "https://escuela-app.onrender.com/escuela/"
+                ),
+                @Server(
+                  description = "Entorno local",
+                  url = "http://localhost:8080/escuela/"
                 )
         },
         security = {

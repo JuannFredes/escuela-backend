@@ -23,6 +23,7 @@ Principales cambios:
 Deployee mi Api Rest de forma gratuita en [Render](https://render.com/), donde podra probar la Api Rest sin necesidad de instalarla. 
 
 El link para acceder a la [documentación](#documentacion) de la misma es https://escuela-app.onrender.com/escuela/swagger-ui.html. En ella, mediante la documentation en Swagger, podra informarse como funciona e interactuar con la Api desde alli. Agregue datos ficticios a la base de datos para que sea más interactiva.
+**Recuerda seleccionar el server de producción**, para más información sobre esto lee el apartado de la [documentación](#documentacion)
 
 **NOTA:** La Api, al ser desplegada en un servicio gratuito, puede fallar o ir lenta. En ese caso puede [instalarla en su maquina de forma tradicional](#tradicional) o [arrancarla desde un contenedor](#docker) mediante [Docker](https://www.docker.com/) siguiendo las instrucciones a continuación.
 
@@ -40,7 +41,7 @@ Existen 3 tipos de roles de usuarios: ADMIN, USUARIO y INVITADO.
 Para logearse solo será necesario `username` y `password`. Si las credenciales son correctas, se le proporcionara un token para poder acceder a los diferentes endpoints dependiendo de su rol.
 
 - ### Registro
-Para registrarse, como se explico anteriormente, debera tener el rol de ADMIN. Solo será necesario él `username`, `password` y `roles`.
+Para registrarse, como se explicó anteriormente, debera tener el rol de ADMIN. Solo será necesario él `username`, `password` y `roles`.
 
 - ### Eliminar usuario
 Se podrá eliminar usuarios con el `id` o el `username` del mismo.
@@ -85,6 +86,7 @@ Para más información acceda a la [documentación](#documentacion).
    ```
    mvn liquibase:update -Pdev
    ```
+
 7. Finalmente, para iniciar el proyecto ejecuta
    ```
    java -jar target/escuela-0.0.1-SNAPSHOT.jar
@@ -160,5 +162,20 @@ En los test controlo todas la capas de mi aplicación. Creando objetos especific
 
 La documentación al estar hecha con [Swagger](https://swagger.io/) permite no solo informarse de que forma funciona la Api, sino que tambien es posible interactuar con ella.
 
-Para probar la API puede accerder con las credenciales dadas en el apartado de [seguridad](#seguridad), para hacerlo siga las siguientes instrucciones: 
+Para probar la API, mediante la documentación [Swagger](https://swagger.io/), siga las siguientes instrucciones: 
+
+1) Asegúrese de indicar desde que sitio va a probar la API:
+   ![seleccionar-servidor](img/select-server.png)
+2) Vaya a la pestaña de Login:
+   ![login-pestaña](img/select-login.png)
+3) Clickee en `Try it out` y ponga las credenciales (Se encuentran en el apartado [seguridad](#seguridad)):
+   ![login-credenciales](img/login-credentials.jpg)
+4) Copie el token de la respuesta que obtendrá: 
+   ![token-response](img/response.jpg)
+5) Suba y clickee en `Authorize`:
+   ![authorize-select](img/select-authorize.png)
+6) Ahora, finalmente, pegue el token y seleccione `Authorize`:
+   ![poner-token](img/token.jpg)
+
+Una vez que siga todas las instrucciones ya podra probar todos los endpoints, si quiere también puede probar la seguridad y los mensajes de error al intentar usar los endpoints sin el token.  
 
