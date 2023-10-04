@@ -5,7 +5,10 @@ import com.juan.escuela.dto.RegistroDto;
 import com.juan.escuela.dto.UsuarioDto;
 import com.juan.escuela.exceptions.AppException;
 import com.juan.escuela.mappers.UsuarioMapper;
+import com.juan.escuela.models.ERol;
+import com.juan.escuela.models.Rol;
 import com.juan.escuela.models.Usuario;
+import com.juan.escuela.repositories.RolRepository;
 import com.juan.escuela.repositories.UsuarioRepository;
 import com.juan.escuela.security.TokenUtils;
 import com.juan.escuela.security.UserDetailsImpl;
@@ -17,11 +20,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @RequiredArgsConstructor
 @Service
 public class AuthenticationService {
 
     private final UsuarioRepository usuarioRepository;
+    private final RolRepository rolRepository;
     private final UsuarioMapper usuarioMapper;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
@@ -35,6 +42,11 @@ public class AuthenticationService {
 
         registroDto.setPassword(passwordEncoder.encode(registroDto.getPassword()));
         Usuario usuario = usuarioMapper.toUsuario(registroDto);
+
+        Set<Rol> roles = rolRepository.getRol(ERol.USUARIO.name()).map(rol -> Set.of(rol))
+                .orElseThrow(() -> new AppException("no existe el rol USUARIO", HttpStatus.NOT_FOUND));
+        usuario.setRoles(roles);
+
         Usuario usuarioSave = usuarioRepository.save(usuario);
 
         return getUsuarioDtoToken(usuarioSave);

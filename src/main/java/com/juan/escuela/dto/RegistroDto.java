@@ -1,5 +1,6 @@
 package com.juan.escuela.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,9 +23,5 @@ public class RegistroDto {
     @NotNull
     @NotBlank
     private String password;
-
-    @NotNull
-    @NotBlank
-    private Set<String> roles;
 
 }

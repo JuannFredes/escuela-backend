@@ -25,7 +25,6 @@ public interface UsuarioMapper {
     @IterableMapping(qualifiedByName = "toUsuarioDto")
     List<UsuarioDto> toListUsuarioDto(List<Usuario> usuarios);
 
-    @Mapping(target = "roles", qualifiedByName = "mapToSetRol")
     Usuario toUsuario(RegistroDto registroDto);
 
     @Named("mapToSetRol")

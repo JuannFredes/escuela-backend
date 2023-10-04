@@ -37,6 +37,7 @@ public class WebSecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests( auth -> {
                     auth.antMatchers(
+                                    "/v2/auth//register",
                                     "/v2/auth/login",
                                     "/v2/api-docs",
                                     "/v3/api-docs",
@@ -50,8 +51,6 @@ public class WebSecurityConfig {
                                     "/swagger-ui.html"
                     )
                             .permitAll();
-
-                    auth.antMatchers("/v1/auth/registrar").hasRole(ADMIN.name());
                     auth.antMatchers("/v1/usuarios/**").hasRole(ADMIN.name());
                     auth.antMatchers(HttpMethod.GET).hasAnyRole(ADMIN.name(), INVITADO.name(), USUARIO.name());
                     auth.antMatchers(HttpMethod.POST).hasAnyRole(ADMIN.name(), USUARIO.name());

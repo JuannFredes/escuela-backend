@@ -109,7 +109,6 @@ public class UsuarioMapperTest {
         RegistroDto registroDtoExpected = RegistroDto.builder()
                 .username("Prueba")
                 .password("Pass")
-                .roles(Set.of(ERol.ADMIN.name()))
                 .build();
 
 
@@ -121,7 +120,6 @@ public class UsuarioMapperTest {
         assertAll(() -> {
             assertEquals(registroDtoExpected.getUsername(), usuarioResult.getUsername());
             assertEquals(registroDtoExpected.getPassword(), usuarioResult.getPassword());
-            assertEquals(registroDtoExpected.getRoles(), rolesStringResult);
         });
     }
 }
