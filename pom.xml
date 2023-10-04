@@ -24,6 +24,13 @@
 		<profile>
 			<id>prod</id>
 			<properties>
+				<driver>com.mysql.cj.jdbc.Driver</driver>
+				<!--suppress UnresolvedMavenProperty -->
+				<liquibase.url>jdbc:mysql://${env.PROD_DB_HOST}:${env.PROD_DB_PORT}/${env.PROD_DB_NAME}</liquibase.url>
+				<!--suppress UnresolvedMavenProperty -->
+				<liquibase.username>${env.PROD_DB_USERNAME}</liquibase.username>
+				<!--suppress UnresolvedMavenProperty -->
+				<liquibase.password>${env.PROD_DB_PASSWORD}</liquibase.password>
 				<liquibase.propertyFile>src/main/resources/liquibase-prod.properties</liquibase.propertyFile>
 			</properties>
 		</profile>
@@ -215,15 +222,6 @@
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>4.19.0</version>
-				<configuration>
-					<driver>com.mysql.cj.jdbc.Driver</driver>
-					<!--suppress UnresolvedMavenProperty -->
-					<url>jdbc:mysql://${env.PROD_DB_HOST}:${env.PROD_DB_PORT}/${env.PROD_DB_NAME}</url>
-					<!--suppress UnresolvedMavenProperty -->
-					<username>${env.PROD_DB_USERNAME}</username>
-					<!--suppress UnresolvedMavenProperty -->
-					<password>${env.PROD_DB_PASSWORD}</password>
-				</configuration>
 				<executions>
 					<execution>
 						<goals>
@@ -231,12 +229,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<!--<configuration>
-					<profiles>
-						<profile>dev</profile>
-					</profiles>
-					<propertyFile>src/main/resources/liquibase.properties</propertyFile>
-				</configuration> -->
 				<dependencies>
 					<dependency>
 						<groupId>com.h2database</groupId>
@@ -246,7 +238,7 @@
 					<dependency>
 						<groupId>org.hibernate</groupId>
 						<artifactId>hibernate-core</artifactId>
-						<version>5.4.25.Final</version>
+						<version>5.6.12.Final</version>
 					</dependency>
 					<dependency>
 						<groupId>jakarta.xml.bind</groupId>
