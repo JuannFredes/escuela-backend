@@ -8,6 +8,16 @@ Desarrolle este proyecto en Java 11 utilizando el framework Spring Boot. Tambié
 
 ## Notas de la Versión
 
+### v2.0.0
+
+En esta nueva version se ha agregado un cambio en la funcionalidad y seguridad de la aplicación 
+
+Principales cambios:
+
+- El endpoint de registro se puede acceder sin token
+- Es posible el registro de cualquier persona sin necesidad del ADMIN, de forma predeterminada tendra el rol de USUARIO
+- El rol ADMIN ahora solo tundra una capacidad diferencial que será la de ver a todos los usuarios registrados
+
 ### v1.1.1
 
 En esta nueva version se ha agregado una nueva funcionalidad a la API y se ha cambiado la version de los endpoints.
